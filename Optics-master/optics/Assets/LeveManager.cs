@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class LevelManager : MonoBehaviour {
+public class LeveManager : MonoBehaviour {
 
     void Start() // Lance le GameEngine quand le niveau est prêt
     {
