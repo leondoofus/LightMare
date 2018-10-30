@@ -18,7 +18,6 @@ public class LevelSystem : FSystem {
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("wooo");
             LV.ChangeScene();
         }
         

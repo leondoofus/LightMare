@@ -31,7 +31,6 @@ public class LightSource : MonoBehaviour
     Quaternion OldRotation;
     void Update()
     {
-       
         LaunchStar();
         
 
@@ -40,8 +39,7 @@ public class LightSource : MonoBehaviour
 
         hasChanged = true;
         OldPosition = transform.localPosition;
-        OldRotation = transform.localRotation;
-        
+        OldRotation = transform.localRotation;        
     }
 
     public void InitializeSource()
@@ -49,7 +47,6 @@ public class LightSource : MonoBehaviour
         LightRays = new LightRay[N];
         for (int i = 0; i < N; i++)
         {
-
             if (RaysReserve.childCount == 0) return; // Plus de rayons disponible !!
 
 

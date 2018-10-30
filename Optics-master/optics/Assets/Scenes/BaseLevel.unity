@@ -271,15 +271,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fixedUpdateSystemDescriptions: []
-  _updateSystemDescriptions:
-  - _typeAssemblyQualifiedName: GameEngineSystem, Assembly-CSharp, Version=0.0.0.0,
-      Culture=neutral, PublicKeyToken=null
-    _typeFullName: GameEngineSystem
-    _pause: 0
-  - _typeAssemblyQualifiedName: LevelSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: LevelSystem
-    _pause: 0
+  _updateSystemDescriptions: []
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0

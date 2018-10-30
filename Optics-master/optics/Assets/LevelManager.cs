@@ -7,7 +7,7 @@ public class LevelManager : MonoBehaviour {
 
     void Start() // Lance le GameEngine quand le niveau est prêt
     {
-        FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
+        GameEngine GE = GameObject.Find("GameEngine").GetComponent<GameEngine>();
         GE.StartGameEngine();
     }
 
