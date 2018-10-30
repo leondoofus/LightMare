@@ -448,7 +448,6 @@ GameObject:
   - component: {fileID: 567215546}
   - component: {fileID: 567215548}
   - component: {fileID: 567215547}
-  - component: {fileID: 567215549}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -508,17 +507,6 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 567215545}
   m_CullTransparentMesh: 0
---- !u!114 &567215549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 567215545}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8eb60b2095d404abaf06f4696333fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &627223535
 GameObject:
   m_ObjectHideFlags: 0
@@ -730,6 +718,10 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1258086514095564, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
   m_IsPrefabAsset: 0
@@ -912,6 +904,10 @@ Prefab:
       propertyPath: LevelNumber
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1258086514095564, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
   m_IsPrefabAsset: 0
@@ -924,7 +920,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1068694531}
   - component: {fileID: 1068694535}
-  - component: {fileID: 1068694534}
   - component: {fileID: 1068694533}
   - component: {fileID: 1068694532}
   m_Layer: 0
@@ -970,17 +965,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5599998, y: 1.0299999, z: 0.19999999}
   m_Center: {x: 0, y: -0.00000008940697, z: 0.0000076293945}
---- !u!114 &1068694534
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1068694530}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8eb60b2095d404abaf06f4696333fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1068694535
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1036,7 +1020,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1134318170}
   - component: {fileID: 1134318174}
-  - component: {fileID: 1134318173}
   - component: {fileID: 1134318172}
   - component: {fileID: 1134318171}
   m_Layer: 0
@@ -1082,17 +1065,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.5599998, y: 1.0299999, z: 0.19999999}
   m_Center: {x: 0, y: -0.00000008940697, z: 0.0000076293945}
---- !u!114 &1134318173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1134318169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8eb60b2095d404abaf06f4696333fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &1134318174
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1168,9 +1140,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _fixedUpdateSystemDescriptions: []
   _updateSystemDescriptions:
-  - _typeAssemblyQualifiedName: LevelSystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
-    _typeFullName: LevelSystem
+  - _typeAssemblyQualifiedName: GameEngineSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: GameEngineSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: LevelSelectorSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: LevelSelectorSystem
     _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
@@ -1334,6 +1310,10 @@ Prefab:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1258086514095564, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c2f48ff12e07f2f4daa8b4aca6ebb890, type: 2}
   m_IsPrefabAsset: 0
@@ -1348,7 +1328,6 @@ GameObject:
   - component: {fileID: 1985445882}
   - component: {fileID: 1985445883}
   - component: {fileID: 1985445884}
-  - component: {fileID: 1985445885}
   m_Layer: 0
   m_Name: ComponentButtonLv1
   m_TagString: Untagged
@@ -1438,14 +1417,3 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.56, y: 1.03, z: 0.2}
   m_Center: {x: 0, y: -0.00000035762787, z: 0}
---- !u!114 &1985445885
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1985445880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d8eb60b2095d404abaf06f4696333fc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
