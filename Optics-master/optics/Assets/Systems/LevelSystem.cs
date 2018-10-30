@@ -10,18 +10,18 @@ public class LevelSystem : FSystem {
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        if (LV == null)
-            Debug.Log("woooo");
         GameObject go = _levelGO.First();
         if (go != null)
         {
             if (Input.GetMouseButton(0))
                 LV.SelectLevel(Int32.Parse(go.name[go.name.Length - 1].ToString()));
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-                go.GetComponent<FYFYLevelSelector>().ChangeScene();
-            }
         }
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("wooo");
+            LV.ChangeScene();
+        }
+        
 
     }
 }

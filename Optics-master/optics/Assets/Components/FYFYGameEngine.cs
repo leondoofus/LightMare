@@ -52,6 +52,8 @@ public class FYFYGameEngine : MonoBehaviour {
         Targets = FindObjectsOfType<Target>();
         RaysReserve.gameObject.SetActive(true);
         Rays = GameObject.Find("Rays").transform;
+        Debug.Log(RaysReserve);
+        Debug.Log(Rays);
         Transform PlayGround = GameObject.Find("Playground").transform;
 
         foreach (LightSource ls in LightSources)

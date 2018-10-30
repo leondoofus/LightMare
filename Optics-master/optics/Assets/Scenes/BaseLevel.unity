@@ -121,16 +121,15 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 99742667}
-  - component: {fileID: 99742666}
-  - component: {fileID: 99742665}
   - component: {fileID: 99742664}
+  - component: {fileID: 99742665}
   m_Layer: 0
   m_Name: FYFYGameEngine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &99742664
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163,27 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b0b5f7bd42229c246925acad08416d38, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &99742666
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 99742663}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9aed565e02b0914d97755fc42dc699e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LightSources: []
-  OpticalComponents: []
-  Targets: []
-  NRaysMax: 10000
-  LengthMax: 15
-  Rays: {fileID: 0}
-  RaysReserve: {fileID: 0}
-  DepthMax: 10
-  running: 0
-  levelLoaded: 0
 --- !u!4 &99742667
 Transform:
   m_ObjectHideFlags: 0
@@ -216,7 +194,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &281981036
 Transform:
   m_ObjectHideFlags: 0
@@ -499,7 +477,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1621607304
 MonoBehaviour:
   m_ObjectHideFlags: 0
