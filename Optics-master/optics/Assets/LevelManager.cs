@@ -9,7 +9,6 @@ public class LevelManager : MonoBehaviour {
     {
         FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
         GE.StartGameEngine();
-        GE.Draw();
     }
 
 }
