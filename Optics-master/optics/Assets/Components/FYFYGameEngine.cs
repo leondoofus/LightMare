@@ -44,6 +44,7 @@ public class FYFYGameEngine : MonoBehaviour {
 
     }
 
+    /*
     public void StartGameEngine()
     {
         LightSources = FindObjectsOfType<LightSource>();
@@ -69,10 +70,9 @@ public class FYFYGameEngine : MonoBehaviour {
         }
 
         running = true;
-    }
+    }*/
 
-
-    int i = 0;
+    /*
     public void Draw()
     {
         //Profiler.BeginSample("MyPieceOfCode");
@@ -230,13 +230,13 @@ public class FYFYGameEngine : MonoBehaviour {
     private void ResetLightRay(LightRay ray) // remove child recursively
     {
 
-        /*while (ray.transform.childCount > 0) // Attention le foreach ne marche pas car on change le nombre de child !
+        while (ray.transform.childCount > 0) // Attention le foreach ne marche pas car on change le nombre de child !
         {
             ResetLightRay(ray.transform.GetChild(0).GetComponent<LightRay>());
         }
         ray.transform.parent = RaysReserve;
         ray.End = null;
-        ray.Origin = null;*/
+        ray.Origin = null;
 
 
         foreach (LightRay r in ray.GetComponentsInChildren<LightRay>())
@@ -245,5 +245,5 @@ public class FYFYGameEngine : MonoBehaviour {
             r.End = null;
             r.Origin = null;
         }
-    }
+    }*/
 }

@@ -409,6 +409,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LevelSelectorSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: StartGESystem, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+      PublicKeyToken=null
+    _typeFullName: StartGESystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
@@ -450,7 +454,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &689272506
 MonoBehaviour:
   m_ObjectHideFlags: 0

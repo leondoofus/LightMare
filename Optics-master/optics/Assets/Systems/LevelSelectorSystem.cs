@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 public class LevelSelectorSystem : FSystem {
     private Family _levelGO = FamilyManager.getFamily(new AllOfComponents(typeof(PointerOver)));
     FYFYLevelSelector LV = GameObject.Find("FYFYLevelSelector").GetComponent<FYFYLevelSelector>();
+    FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount)
@@ -24,12 +25,16 @@ public class LevelSelectorSystem : FSystem {
         }
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (LV.GE.running)
+            if (GE.running)
             {
-                LV.GE.ResetLightRay();
+                foreach (LightRay r in GE.Rays.GetComponentsInChildren<LightRay>())
+                {
+                    r.transform.parent = GE.RaysReserve;
+                    r.Origin = r.End = null;
+                }
                 SceneManager.UnloadSceneAsync("Level" + LV.CurrentLevel);
                 SceneManager.LoadScene("MiniMap", LoadSceneMode.Single);
-                LV.GE.running = false;
+                GE.running = false;
             }
             else
             {
