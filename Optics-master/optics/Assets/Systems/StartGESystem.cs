@@ -6,7 +6,7 @@ public class StartGESystem : FSystem {
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        if (!GE.running)
+        if (GE.levelLoaded)
         {
             GE.LightSources = Object.FindObjectsOfType<LightSource>();
             GE.OpticalComponents = Object.FindObjectsOfType<OpticalComponent>();
@@ -31,6 +31,7 @@ public class StartGESystem : FSystem {
             }
 
             GE.running = true;
+            GE.levelLoaded = false;
         }
         
 	}

@@ -9,12 +9,11 @@ public class FYFYGameEngine : MonoBehaviour {
     public int NRaysMax = 1000;
     public float LengthMax = 15.0f;
 
-    public Transform Rays;
-    public Transform RaysReserve;
+    public Transform Rays = null;
+    public Transform RaysReserve = null;
     public int DepthMax = 10;
     public bool running = false;
     public bool levelLoaded = false;
-
 
     void Start()
     {
@@ -70,9 +69,9 @@ public class FYFYGameEngine : MonoBehaviour {
         }
 
         running = true;
-    }*/
+    }
 
-    /*
+    
     public void Draw()
     {
         //Profiler.BeginSample("MyPieceOfCode");
