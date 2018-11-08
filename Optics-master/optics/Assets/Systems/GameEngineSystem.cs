@@ -2,14 +2,45 @@
 using FYFY;
 
 public class GameEngineSystem : FSystem {
-    FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
+    private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
+
+    public GameEngineSystem()
+    {
+        /*
+        GameObject GOE = _GE.First();
+        if (GOE != null)
+        {
+            FYFYGameEngine GE = GOE.GetComponent<FYFYGameEngine>();
+            GE.RaysReserve = GameObject.Find("RaysReserve").transform;  // find and deactivate
+            GE.RaysReserve.gameObject.SetActive(false);
+            for (int i = 0; i < GE.NRaysMax; i++)
+            {
+                int k = i;
+                for (; i < k + 100; i++)
+                {
+                    GameObject ray = new GameObject("Ray");
+                    ray.transform.SetParent(GE.RaysReserve);
+                    ray.transform.localScale = Vector3.one;
+                    ray.transform.localPosition = Vector3.zero;
+
+                    LightRay r = ray.AddComponent<LightRay>();
+                    r.Initiliaze();
+                }
+            }
+        }*/
+    }
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        Draw();
+        GameObject GE = _GE.First();
+        if (GE != null)
+        {
+            Draw(GE.GetComponent<FYFYGameEngine>());
+        }
+            
     }
 
-    private void Draw()
+    private void Draw(FYFYGameEngine GE)
     {
         //Profiler.BeginSample("MyPieceOfCode");
 
@@ -31,14 +62,14 @@ public class GameEngineSystem : FSystem {
 
         if (update)
         {
-            UpdateAllRays();
+            UpdateAllRays(GE);
         }
 
         foreach (OpticalComponent op in GE.OpticalComponents)
         {
             if (op.hasChanged)
             {
-                UpdateLightRays1OP(op);
+                UpdateLightRays1OP(GE, op);
                 update = true;
             }
         }
@@ -51,7 +82,7 @@ public class GameEngineSystem : FSystem {
         //Profiler.EndSample();
     }
 
-    private void UpdateAllRays()
+    private void UpdateAllRays(FYFYGameEngine GE)
     {
 
         foreach (LightSource ls in GE.LightSources)
@@ -62,7 +93,7 @@ public class GameEngineSystem : FSystem {
         foreach (Transform t in GE.Rays)
         {
             LightRay lr = t.GetComponent<LightRay>();
-            Collision(lr);
+            Collision(GE, lr);
             lr.Draw();
         }
 
@@ -72,7 +103,7 @@ public class GameEngineSystem : FSystem {
 
     }
 
-    private bool Collision(LightRay lr)
+    private bool Collision(FYFYGameEngine GE, LightRay lr)
     {
 
         float lmin = -1;
@@ -97,7 +128,7 @@ public class GameEngineSystem : FSystem {
             opCollision.Deflect(lr);
 
             foreach (Transform lchild in lr.transform)
-                Collision(lchild.GetComponent<LightRay>());
+                Collision(GE, lchild.GetComponent<LightRay>());
 
         }
         else  // Si on touche personne
@@ -107,14 +138,14 @@ public class GameEngineSystem : FSystem {
 
             // On retire tous les rayon enfants
             while (lr.transform.childCount > 0) // Attention le foreach ne marche pas car on change le nombre de child !
-                ResetLightRay(lr.transform.GetChild(0).GetComponent<LightRay>());
+                ResetLightRay(GE, lr.transform.GetChild(0).GetComponent<LightRay>());
 
         }
 
         return false;
     }
 
-    public void ResetLightRay()
+    private void ResetLightRay(FYFYGameEngine GE)
     {
         foreach (LightRay r in GE.Rays.GetComponentsInChildren<LightRay>())
         {
@@ -123,35 +154,35 @@ public class GameEngineSystem : FSystem {
         }
     }
 
-    private void UpdateLightRays1OP(OpticalComponent op)
+    private void UpdateLightRays1OP(FYFYGameEngine GE, OpticalComponent op)
     {
         foreach (Transform t in GE.Rays)
         {
             LightRay lr = t.GetComponent<LightRay>();
-            Update1LightRay1OP(lr, op);
+            Update1LightRay1OP(GE, lr, op);
         }
 
         op.hasChanged = false;
 
     }
 
-    private void Update1LightRay1OP(LightRay lr, OpticalComponent op)
+    private void Update1LightRay1OP(FYFYGameEngine GE, LightRay lr, OpticalComponent op)
     {
-        if (Collision1OP(lr, op)) // si nouvelle collision ou perte de collision
+        if (Collision1OP(GE, lr, op)) // si nouvelle collision ou perte de collision
         {
-            Collision(lr);
+            Collision(GE, lr);
             lr.Draw();
         }
         else
         {
             foreach (Transform lchild in lr.transform)
             {
-                Update1LightRay1OP(lchild.GetComponent<LightRay>(), op);
+                Update1LightRay1OP(GE, lchild.GetComponent<LightRay>(), op);
             }
         }
     }
 
-    private bool Collision1OP(LightRay lr, OpticalComponent op) // test la collision avec 1 optical component
+    private bool Collision1OP(FYFYGameEngine GE, LightRay lr, OpticalComponent op) // test la collision avec 1 optical component
     {
         if (lr.End == op) // si l'op touchait le rayon, on l'update
         {
@@ -163,7 +194,7 @@ public class GameEngineSystem : FSystem {
         return false;
     }
 
-    private void ResetLightRay(LightRay ray) // remove child recursively
+    private void ResetLightRay(FYFYGameEngine GE, LightRay ray) // remove child recursively
     {
 
         /*while (ray.transform.childCount > 0) // Attention le foreach ne marche pas car on change le nombre de child !

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using FYFY;
 
 public class DontDestroyOnLoad : MonoBehaviour {
 
@@ -11,7 +12,7 @@ public class DontDestroyOnLoad : MonoBehaviour {
     {
         if (!created)
         {
-            DontDestroyOnLoad(this.gameObject);
+            GameObjectManager.dontDestroyOnLoadAndRebind(this.gameObject);
             created = true;
             SceneManager.LoadScene("MiniMap");
         }

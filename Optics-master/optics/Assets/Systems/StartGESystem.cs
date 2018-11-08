@@ -2,37 +2,41 @@
 using FYFY;
 
 public class StartGESystem : FSystem {
-    FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
+    private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        if (GE.levelLoaded)
+        GameObject go = _GE.First();
+        if (go != null)
         {
-            GE.LightSources = Object.FindObjectsOfType<LightSource>();
-            GE.OpticalComponents = Object.FindObjectsOfType<OpticalComponent>();
-            GE.Targets = Object.FindObjectsOfType<Target>();
-            GE.Rays = GameObject.Find("Rays").transform;
-            Transform PlayGround = GameObject.Find("Playground").transform;
-
-            foreach (LightSource ls in GE.LightSources)
+            FYFYGameEngine GE = go.GetComponent<FYFYGameEngine>();
+            if (GE.levelLoaded)
             {
-                ls.Rays = GE.Rays;
-                ls.RaysReserve = GE.RaysReserve;
-                ls.InitializeSource();
-                ls.PlayGround = PlayGround;
-            }
+                GE.LightSources = Object.FindObjectsOfType<LightSource>();
+                GE.OpticalComponents = Object.FindObjectsOfType<OpticalComponent>();
+                GE.Targets = Object.FindObjectsOfType<Target>();
+                GE.Rays = GameObject.Find("Rays").transform;
+                Transform PlayGround = GameObject.Find("Playground").transform;
 
-            foreach (OpticalComponent op in GE.OpticalComponents)
-            {
-                op.DepthMax = GE.DepthMax;
-                op.Rays = GE.Rays;
-                op.RaysReserve = GE.RaysReserve;
-                op.PlayGround = PlayGround;
-            }
+                foreach (LightSource ls in GE.LightSources)
+                {
+                    ls.Rays = GE.Rays;
+                    ls.RaysReserve = GE.RaysReserve;
+                    ls.InitializeSource();
+                    ls.PlayGround = PlayGround;
+                }
 
-            GE.running = true;
-            GE.levelLoaded = false;
+                foreach (OpticalComponent op in GE.OpticalComponents)
+                {
+                    op.DepthMax = GE.DepthMax;
+                    op.Rays = GE.Rays;
+                    op.RaysReserve = GE.RaysReserve;
+                    op.PlayGround = PlayGround;
+                }
+
+                GE.running = true;
+                GE.levelLoaded = false;
+            }
         }
-        
 	}
 }
