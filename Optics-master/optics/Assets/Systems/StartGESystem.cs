@@ -10,7 +10,8 @@ public class StartGESystem : FSystem {
             DrawRays(go);
         _GE.addEntryCallback(DrawRays);
     }
-        private void DrawRays(GameObject go)
+    
+    private void DrawRays(GameObject go)
     {
         FYFYGameEngine GE = go.GetComponent<FYFYGameEngine>();
         GE.LightSources = Object.FindObjectsOfType<LightSource>();
@@ -37,7 +38,8 @@ public class StartGESystem : FSystem {
 
         GE.running = true;
         
-    }
+    }
+
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {

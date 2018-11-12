@@ -37,7 +37,7 @@ public class StarFollowRay : MonoBehaviour {
     {
         GetComponent<Image>().color = Ray.Col * I;
     }
-
+    /*
     void Update () {
         Pos += velocity * Time.deltaTime;
 
@@ -54,7 +54,7 @@ public class StarFollowRay : MonoBehaviour {
             transform.localPosition = SPos;
             SetColor();
         }
-    }
+    }*/
 
 
     void JumpOnChild()

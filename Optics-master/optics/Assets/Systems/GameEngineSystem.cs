@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FYFY;
+using UnityEngine.SceneManagement;
 
 public class GameEngineSystem : FSystem {
     private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
@@ -28,6 +29,10 @@ public class GameEngineSystem : FSystem {
                 }
             }
         }*/
+        foreach(GameObject go in _GE)
+            GameObjectManager.dontDestroyOnLoadAndRebind(go);
+        if (SceneManager.GetActiveScene().name == "BaseLevel")
+            SceneManager.LoadScene("MiniMap");
     }
 
     // Use to process your families.

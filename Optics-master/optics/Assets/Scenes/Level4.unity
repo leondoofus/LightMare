@@ -413,6 +413,14 @@ MonoBehaviour:
       PublicKeyToken=null
     _typeFullName: StartGESystem
     _pause: 0
+  - _typeAssemblyQualifiedName: LaunchStarSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: LaunchStarSystem
+    _pause: 0
+  - _typeAssemblyQualifiedName: StarFollowRaySystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: StarFollowRaySystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
@@ -944,6 +952,7 @@ MonoBehaviour:
   Div: 0.6
   Length: 15
   radius: 0
+  LightRays: []
   hasChanged: 1
   Color: {r: 1, g: 1, b: 0.8, a: 0.5}
   Intensity: 1
@@ -1487,6 +1496,11 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1438919178387838, guid: 39053384ba2eaf74ea0f1615d4658410, type: 2}
       propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114426962620521040, guid: 39053384ba2eaf74ea0f1615d4658410,
+        type: 2}
+      propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []

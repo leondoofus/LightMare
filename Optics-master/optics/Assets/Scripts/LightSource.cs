@@ -16,7 +16,7 @@ public class LightSource : MonoBehaviour
     public float Div = 0;
     public float Length = 15;
     public float radius = 0.6f;
-    LightRay[] LightRays;
+    public LightRay[] LightRays;
     public bool hasChanged = true;
     public Color Color = new Color(1, 1, 0.8f, 0.5f);
     public float Intensity = 1;
@@ -32,7 +32,7 @@ public class LightSource : MonoBehaviour
     void Update()
     {
        
-        LaunchStar();
+        //LaunchStar();
         
 
         if (OldPosition == transform.localPosition && transform.localRotation == OldRotation)
@@ -130,9 +130,10 @@ public class LightSource : MonoBehaviour
 
     }
 
+    
     void LaunchStar()
     {
-        const float proba = 0.01f;
+        const float proba = 0.1f;
 
         if (Random.Range(0.0f, 1.0f) < proba)
         {
