@@ -1,3 +1,5 @@
 Create GO -> GOM.bind(go)
 Destroy -> GOM.unbind(go)
 unbind before destroy !
+
+Some propropeties only exist in MonoBahavior

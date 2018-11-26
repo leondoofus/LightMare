@@ -24,7 +24,24 @@ public class StartGESystem : FSystem {
         {
             ls.Rays = GE.Rays;
             ls.RaysReserve = GE.RaysReserve;
-            ls.InitializeSource();
+            //InitializeSource();
+            ls.LightRays = new LightRay[ls.N];
+            for (int i = 0; i < ls.N; i++)
+            {
+
+                if (ls.RaysReserve.childCount == 0) return; // Plus de rayons disponible !!
+
+
+                // Preparation du rayon
+                LightRay r = ls.RaysReserve.GetChild(0).GetComponent<LightRay>();
+                r.transform.parent = ls.Rays;
+                r.transform.localScale = Vector3.one;
+                r.transform.position = Vector3.zero;
+                r.Origin = null;
+                r.depth = 0;
+
+                ls.LightRays[i] = r;
+            }
             ls.PlayGround = PlayGround;
         }
 

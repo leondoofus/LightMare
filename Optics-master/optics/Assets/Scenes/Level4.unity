@@ -421,6 +421,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: StarFollowRaySystem
     _pause: 0
+  - _typeAssemblyQualifiedName: LightSourceSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: LightSourceSystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
@@ -957,6 +961,8 @@ MonoBehaviour:
   Color: {r: 1, g: 1, b: 0.8, a: 0.5}
   Intensity: 1
   PlayGround: {fileID: 0}
+  OldPosition: {x: 0, y: 0, z: 0}
+  OldRotation: {x: 0, y: 0, z: 0, w: 0}
 --- !u!1 &1150984066
 GameObject:
   m_ObjectHideFlags: 0

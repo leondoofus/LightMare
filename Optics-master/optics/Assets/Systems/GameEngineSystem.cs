@@ -92,7 +92,34 @@ public class GameEngineSystem : FSystem {
 
         foreach (LightSource ls in GE.LightSources)
         {
-            ls.EmitLight();
+            //ls.EmitLight();
+            float angle = ls.transform.localRotation.eulerAngles.z * 2 * Mathf.PI / 360;
+            Vector3 pos = ls.transform.localPosition;
+
+            for (int i = 0; i < ls.N; i++)
+            {
+
+                LightRay r = ls.LightRays[i];
+
+                // Couleur et intensité
+                Color c = ls.Color;
+                c.a = c.a * (1 - (i + 0.5f - ls.N / 2f) * (i + 0.5f - ls.N / 2f) / (float)ls.N / ls.N * 4.0f);
+                r.Col = c;
+                r.Intensity = ls.Intensity / ls.N;
+
+                // Calculs des positions et directions
+                float l1 = -ls.radius * (-0.5f + i / (float)ls.N);
+                float l2 = -ls.radius * (-0.5f + (i + 1) / (float)ls.N);
+
+                r.StartPosition1 = pos + new Vector3(Mathf.Sin(angle) * l1, -Mathf.Cos(angle) * l1, 0);
+                r.StartPosition2 = pos + new Vector3(Mathf.Sin(angle) * l2, -Mathf.Cos(angle) * l2, 0);
+
+                r.Direction1 = ls.Div * (-0.5f + i / (float)ls.N) + angle;
+                r.Direction2 = ls.Div * (-0.5f + (i + 1) / (float)ls.N) + angle;
+
+                // Précalcul de paramètres géométriques utiles pour le calcul de collision
+                r.ComputeDir();
+            }
         }
 
         foreach (Transform t in GE.Rays)

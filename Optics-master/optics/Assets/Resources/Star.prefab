@@ -21,8 +21,7 @@ GameObject:
   - component: {fileID: 224961379550341314}
   - component: {fileID: 222444839489433050}
   - component: {fileID: 114992325983623440}
-  - component: {fileID: 114426962620521040}
-  - component: {fileID: 114507202042798574}
+  - component: {fileID: 114320346380534980}
   m_Layer: 0
   m_Name: Star
   m_TagString: Untagged
@@ -30,21 +29,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114426962620521040
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1438919178387838}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 339dd789dca157f499f6c1b0bad72617, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Ray: {fileID: 0}
-  velocity: 10
-  attenuation: 0.02
---- !u!114 &114507202042798574
+--- !u!114 &114320346380534980
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
