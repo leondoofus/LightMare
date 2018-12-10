@@ -2,6 +2,9 @@ Create GO -> GOM.bind(go)
 Destroy -> GOM.unbind(go)
 unbind before destroy !
 
-Some propropeties only exist in MonoBahavior
+Some propropeties only exist in MonoBehavior
 
 Hierarchie -> duplication de code
+Aussi dans les mini collisions -> duplication de calcul
+
+Mouse Events -> Pointer Sensitive

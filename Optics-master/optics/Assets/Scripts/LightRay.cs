@@ -68,7 +68,7 @@ public class LightRay : MonoBehaviour {
     }*/
 
  
-    public void ComputeDir() { //Calcule les vecteurs directeurs et paramètres
+    /*public void ComputeDir() { //Calcule les vecteurs directeurs et paramètres
         cos1 = Mathf.Cos(Direction1);
         sin1 = Mathf.Sin(Direction1);
         proj1 = StartPosition1.x * cos1 + StartPosition1.y * sin1;
@@ -81,7 +81,7 @@ public class LightRay : MonoBehaviour {
         div = Direction2 - Direction1;
         if (div < 0) div = -div;
         if (div > 2 * Mathf.PI) div -= 2 * Mathf.PI;
-    }
+    }*/
 
     //public bool colimated;
 

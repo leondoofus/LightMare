@@ -21,6 +21,7 @@ public class LevelSelectorSystem : FSystem {
             {
                 if (Input.GetMouseButton(0))
                 {
+                    if (GE.running) return;
                     Debug.Log("Loading: " + "Level" + go.name[go.name.Length - 1].ToString());
                     SceneManager.LoadScene("Level" + Int32.Parse(go.name[go.name.Length - 1].ToString()), LoadSceneMode.Single);
                     SceneManager.UnloadSceneAsync("MiniMap");

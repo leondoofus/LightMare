@@ -53,7 +53,19 @@ public class Mirror : OpticalComponent {
        
         lr.Direction1 = -ao1 + 2*angle;
         lr.Direction2 = -ao2 + 2*angle;
-        lr.ComputeDir();
+        //lr.ComputeDir();
+        lr.cos1 = Mathf.Cos(lr.Direction1);
+        lr.sin1 = Mathf.Sin(lr.Direction1);
+        lr.proj1 = lr.StartPosition1.x * lr.cos1 + lr.StartPosition1.y * lr.sin1;
+        lr.param1 = -lr.StartPosition1.x * lr.sin1 + lr.StartPosition1.y * lr.cos1;
+        lr.cos2 = Mathf.Cos(lr.Direction2);
+        lr.sin2 = Mathf.Sin(lr.Direction2);
+        lr.proj2 = lr.StartPosition2.x * lr.cos2 + lr.StartPosition2.y * lr.sin2;
+        lr.param2 = -lr.StartPosition2.x * lr.sin2 + lr.StartPosition2.y * lr.cos2;
+
+        lr.div = lr.Direction2 - lr.Direction1;
+        if (lr.div < 0) lr.div = -lr.div;
+        if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
     }
 
 }

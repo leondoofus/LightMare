@@ -96,7 +96,19 @@ public class GameEngineSystem : FSystem {
                 r.Direction2 = ls.Div * (-0.5f + (i + 1) / (float)ls.N) + angle;
 
                 // Précalcul de paramètres géométriques utiles pour le calcul de collision
-                r.ComputeDir();
+                //r.ComputeDir();
+                r.cos1 = Mathf.Cos(r.Direction1);
+                r.sin1 = Mathf.Sin(r.Direction1);
+                r.proj1 = r.StartPosition1.x * r.cos1 + r.StartPosition1.y * r.sin1;
+                r.param1 = -r.StartPosition1.x * r.sin1 + r.StartPosition1.y * r.cos1;
+                r.cos2 = Mathf.Cos(r.Direction2);
+                r.sin2 = Mathf.Sin(r.Direction2);
+                r.proj2 = r.StartPosition2.x * r.cos2 + r.StartPosition2.y * r.sin2;
+                r.param2 = -r.StartPosition2.x * r.sin2 + r.StartPosition2.y * r.cos2;
+
+                r.div = r.Direction2 - r.Direction1;
+                if (r.div < 0) r.div = -r.div;
+                if (r.div > 2 * Mathf.PI) r.div -= 2 * Mathf.PI;
             }
         }
 

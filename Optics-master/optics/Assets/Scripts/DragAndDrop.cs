@@ -24,6 +24,9 @@ public class DragAndDrop : MonoBehaviour {
     Vector3 InitialPos;
     public float angleMouse0;
 
+    public float angleAct;
+    public float angleSet;
+
     private void Start()
     {
         rb = transform.GetComponent<Rigidbody2D>();
@@ -101,15 +104,14 @@ public class DragAndDrop : MonoBehaviour {
 
 
 
-    float AngleFromXY(float x, float y)
+    /*float AngleFromXY(float x, float y)
     {
         float angle= Mathf.Atan2(y, x);
         return angle;
-    }
+    }*/
 
 
-    public float angleAct;
-    public float angleSet;
+   
 
     void Update()
     {

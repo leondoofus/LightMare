@@ -429,6 +429,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LightRaySystem
     _pause: 0
+  - _typeAssemblyQualifiedName: DragAndDropSystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: DragAndDropSystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
@@ -967,6 +971,17 @@ MonoBehaviour:
   PlayGround: {fileID: 0}
   OldPosition: {x: 0, y: 0, z: 0}
   OldRotation: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &1057244774
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1057244772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -53623643, guid: cc7c6b28880e2304facf9cfc42d31a83, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1150984066
 GameObject:
   m_ObjectHideFlags: 0

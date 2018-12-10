@@ -63,7 +63,19 @@ public class LameSemi : OpticalComponent {
         lt.Direction1 = r.Direction1;
         lt.Direction2 = r.Direction2;
         lt.Origin = this;
-        lt.ComputeDir();
+        //lt.ComputeDir();
+        lt.cos1 = Mathf.Cos(lt.Direction1);
+        lt.sin1 = Mathf.Sin(lt.Direction1);
+        lt.proj1 = lt.StartPosition1.x * lt.cos1 + lt.StartPosition1.y * lt.sin1;
+        lt.param1 = -lt.StartPosition1.x * lt.sin1 + lt.StartPosition1.y * lt.cos1;
+        lt.cos2 = Mathf.Cos(lt.Direction2);
+        lt.sin2 = Mathf.Sin(lt.Direction2);
+        lt.proj2 = lt.StartPosition2.x * lt.cos2 + lt.StartPosition2.y * lt.sin2;
+        lt.param2 = -lt.StartPosition2.x * lt.sin2 + lt.StartPosition2.y * lt.cos2;
+
+        lt.div = lt.Direction2 - lt.Direction1;
+        if (lt.div < 0) lt.div = -lt.div;
+        if (lt.div > 2 * Mathf.PI) lt.div -= 2 * Mathf.PI;
 
 
         //Rayon reflechi
@@ -76,6 +88,18 @@ public class LameSemi : OpticalComponent {
         lr.Direction1 = -ao1 + 2 * angle;
         lr.Direction2 = -ao2 + 2 * angle;
         lr.Origin = this;
-        lr.ComputeDir();
+        //lr.ComputeDir();
+        lr.cos1 = Mathf.Cos(lr.Direction1);
+        lr.sin1 = Mathf.Sin(lr.Direction1);
+        lr.proj1 = lr.StartPosition1.x * lr.cos1 + lr.StartPosition1.y * lr.sin1;
+        lr.param1 = -lr.StartPosition1.x * lr.sin1 + lr.StartPosition1.y * lr.cos1;
+        lr.cos2 = Mathf.Cos(lr.Direction2);
+        lr.sin2 = Mathf.Sin(lr.Direction2);
+        lr.proj2 = lr.StartPosition2.x * lr.cos2 + lr.StartPosition2.y * lr.sin2;
+        lr.param2 = -lr.StartPosition2.x * lr.sin2 + lr.StartPosition2.y * lr.cos2;
+
+        lr.div = lr.Direction2 - lr.Direction1;
+        if (lr.div < 0) lr.div = -lr.div;
+        if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
     }
 }
