@@ -19,7 +19,7 @@ public class LightRay : MonoBehaviour {
     public OpticalComponent End;
     public int depth;
 
-    const float EPSILON = 0.00001f; // pour les erreurs d'arrondis
+    public const float EPSILON = 0.00001f; // pour les erreurs d'arrondis
 
     //Mesh mesh;
     void InitilizedMesh()
@@ -57,7 +57,7 @@ public class LightRay : MonoBehaviour {
         InitilizedMesh();
     }
 
-    public void Draw() {
+    /*public void Draw() {
         // Draw the rays recursively;
         //if (!isVisible) return;
         DrawMesh();
@@ -65,7 +65,7 @@ public class LightRay : MonoBehaviour {
         {
             child.GetComponent<LightRay>().Draw();
         }
-    }
+    }*/
 
  
     public void ComputeDir() { //Calcule les vecteurs directeurs et paramètres
@@ -86,7 +86,7 @@ public class LightRay : MonoBehaviour {
     //public bool colimated;
 
     //public float p2start;
-    void DrawMesh() {
+    /*void DrawMesh() {
 
         Vector3[] vertices;
         Vector2[] uv;
@@ -193,7 +193,7 @@ public class LightRay : MonoBehaviour {
       
         GetComponent<MeshRenderer>().material.color = Col;
 
-    }
+    }*/
 
 
     

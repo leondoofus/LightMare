@@ -425,6 +425,10 @@ MonoBehaviour:
       Culture=neutral, PublicKeyToken=null
     _typeFullName: LightSourceSystem
     _pause: 0
+  - _typeAssemblyQualifiedName: LightRaySystem, Assembly-CSharp, Version=0.0.0.0,
+      Culture=neutral, PublicKeyToken=null
+    _typeFullName: LightRaySystem
+    _pause: 0
   _lateUpdateSystemDescriptions: []
   _forceUpdateInspector: 0
   _loadingState: 0
