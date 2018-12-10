@@ -3,3 +3,5 @@ Destroy -> GOM.unbind(go)
 unbind before destroy !
 
 Some propropeties only exist in MonoBahavior
+
+Hierarchie -> duplication de code

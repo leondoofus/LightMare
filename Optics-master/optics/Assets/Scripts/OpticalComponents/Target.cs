@@ -13,10 +13,10 @@ public class Target : OpticalComponent {
 
     float score=0, scoreSpeed=0.5f;
 
-    public void ResetTarget()
+    /*public void ResetTarget()
     {
         CollectedIntensity = 0;
-    }
+    }*/
 
     override public float Collision2(LightRay lr)
     {

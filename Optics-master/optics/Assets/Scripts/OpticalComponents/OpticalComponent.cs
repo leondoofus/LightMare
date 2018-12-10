@@ -56,6 +56,7 @@ public class OpticalComponent : MonoBehaviour {
 
 
     float xc, yc;
+
     public float Collision(LightRay lr, int i)
     {
         float cosr, sinr, xr, yr, br;
