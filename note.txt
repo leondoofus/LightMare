@@ -8,3 +8,5 @@ Hierarchie -> duplication de code
 Aussi dans les mini collisions -> duplication de calcul
 
 Mouse Events -> Pointer Sensitive
+
+Coroutine dans un composant utilisé par plusieurs systèmes -> blocage d'utilisation (un bool par ex)

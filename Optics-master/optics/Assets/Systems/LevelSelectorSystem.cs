@@ -17,6 +17,7 @@ public class LevelSelectorSystem : FSystem {
         if (goe != null)
         {
             FYFYGameEngine GE = goe.GetComponent<FYFYGameEngine>();
+            if (!GE.coroutineStarted) return;
             if (go != null)
             {
                 if (Input.GetMouseButton(0))

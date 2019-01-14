@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using FYFY;
+using System.Collections;
 
 public class StartGESystem : FSystem {
     private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
@@ -10,7 +11,7 @@ public class StartGESystem : FSystem {
             DrawRays(go);
         _GE.addEntryCallback(DrawRays);
     }
-    
+
     private void DrawRays(GameObject go)
     {
         FYFYGameEngine GE = go.GetComponent<FYFYGameEngine>();

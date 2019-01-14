@@ -15,8 +15,11 @@ public class FYFYGameEngine : MonoBehaviour {
     public bool running = false;
     public bool levelLoaded = false;
 
-    void Start()
+    public bool coroutineStarted = false;
+
+    /*void Start()
     {
+        Debug.Log("ici dans component");
         RaysReserve = GameObject.Find("RaysReserve").transform;  // find and deactivate
         RaysReserve.gameObject.SetActive(false);
 
@@ -40,11 +43,9 @@ public class FYFYGameEngine : MonoBehaviour {
             }
             yield return null;
         }
+    }*/
 
-    }
-
-    /*
-    public void StartGameEngine()
+    /*public void StartGameEngine()
     {
         LightSources = FindObjectsOfType<LightSource>();
         OpticalComponents = FindObjectsOfType<OpticalComponent>();

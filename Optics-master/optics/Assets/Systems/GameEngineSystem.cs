@@ -1,16 +1,51 @@
 ﻿using UnityEngine;
 using FYFY;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameEngineSystem : FSystem {
     private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
+    private Family _mainLoop = FamilyManager.getFamily(new AllOfComponents(typeof(MainLoop)));
 
     public GameEngineSystem()
     {
-        foreach(GameObject go in _GE)
-            GameObjectManager.dontDestroyOnLoadAndRebind(go);
         if (SceneManager.GetActiveScene().name == "BaseLevel")
+        {
+            foreach (GameObject go in _GE)
+            {
+                Debug.Log("ici dans system");
+                FYFYGameEngine ge = go.GetComponent<FYFYGameEngine>();
+                ge.RaysReserve = GameObject.Find("RaysReserve").transform;  // find and deactivate
+                ge.RaysReserve.gameObject.SetActive(false);
+
+                _mainLoop.First().GetComponent<MainLoop>().StartCoroutine(FillRaysReserve(ge));
+
+                ge.coroutineStarted = true;
+
+                GameObjectManager.dontDestroyOnLoadAndRebind(go);
+            }
             SceneManager.LoadScene("MiniMap");
+        }
+    }
+
+    private IEnumerator FillRaysReserve(FYFYGameEngine ge)
+    {
+        for (int i = 0; i < ge.NRaysMax; i++)
+        {
+            int k = i;
+            for (; i < k + 100; i++)
+            {
+                GameObject ray = new GameObject("Ray");
+                ray.transform.SetParent(ge.RaysReserve);
+                ray.transform.localScale = Vector3.one;
+                ray.transform.localPosition = Vector3.zero;
+
+                LightRay r = ray.AddComponent<LightRay>();
+                r.Initiliaze();
+                GameObjectManager.bind(ray);
+            }
+            yield return null;
+        }
     }
 
     // Use to process your families.
