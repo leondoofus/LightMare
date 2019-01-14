@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LameSemi : OpticalComponent {
-    private const float Imin = 0.001f;
+    public const float Imin = 0.001f;
     public float ReflectionCoef = 0.5f;
 
-    override public void Deflect(LightRay r)
+    /*override public void Deflect(LightRay r)
     {
 
         float xo1 = r.StartPosition1.x;
@@ -21,12 +21,12 @@ public class LameSemi : OpticalComponent {
         r.Length1 = (xc1 - xo1) * r.cos1 + (yc1 - yo1) * r.sin1;
         r.Length2 = (xc2 - xo2) * r.cos2 + (yc2 - yo2) * r.sin2;
 
-        /*if (r.Intensity < Imin) // pas assez d'intensité pour continuer
-        {
-            while (r.transform.childCount > 0)
-                FreeLightRay(r.transform.GetChild(0).GetComponent<LightRay>());
-            return;
-        } */
+        //if (r.Intensity < Imin) // pas assez d'intensité pour continuer
+        //{
+        //    while (r.transform.childCount > 0)
+        //        FreeLightRay(r.transform.GetChild(0).GetComponent<LightRay>());
+        //    return;
+        //}
 
         LightRay lr = null;
         LightRay lt = null;
@@ -101,5 +101,5 @@ public class LameSemi : OpticalComponent {
         lr.div = lr.Direction2 - lr.Direction1;
         if (lr.div < 0) lr.div = -lr.div;
         if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
-    }
+    }*/
 }

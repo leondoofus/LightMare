@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Wall : OpticalComponent {
 
-    override public void Deflect(LightRay r)
+    /*override public void Deflect(LightRay r)
     {
 
         while (r.transform.childCount > 0)
@@ -20,6 +20,6 @@ public class Wall : OpticalComponent {
         r.Length1 = (xc1 - xo1) * r.cos1 + (yc1 - yo1) * r.sin1;
         r.Length2 = (xc2 - xo2) * r.cos2 + (yc2 - yo2) * r.sin2;
 
-    }
+    }*/
 
 }

@@ -11,11 +11,11 @@ public class FixedRotation : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	/*void Update () {
         if (rotating)
             transform.rotation = Quaternion.Euler(0, 0, Time.time * 36);
         else
             transform.rotation = Quaternion.identity;
 
-    }
+    }*/
 }

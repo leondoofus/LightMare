@@ -47,11 +47,38 @@ public class GameEngineSystem : FSystem {
                 ray.transform.localPosition = Vector3.zero;
 
                 LightRay r = ray.AddComponent<LightRay>();
-                r.Initiliaze();
+                Initiliaze(r);
                 GameObjectManager.bind(ray);
             }
             yield return null;
         }
+    }
+
+    private void Initiliaze(LightRay r)
+    {
+        MeshFilter mf = r.gameObject.AddComponent<MeshFilter>();
+
+        //Material mat = Resources.Load("Materials/Material Line", typeof(Material)) as Material;
+        Material mat = Resources.Load("Materials/RayDiv", typeof(Material)) as Material;
+        MeshRenderer mr = r.gameObject.AddComponent<MeshRenderer>();
+        mr.material = mat;
+        mr.material.color = r.Col;
+        mr.sortingLayerName = "Rays";
+
+        Mesh m = new Mesh
+        {
+            vertices = new Vector3[6],
+            triangles = new int[6] { 0, 1, 2, 3, 4, 5 }
+        };
+
+        m.normals = new Vector3[6] {
+                -Vector3.forward,-Vector3.forward,-Vector3.forward,-Vector3.forward,-Vector3.forward,-Vector3.forward
+            };
+        m.uv = new Vector2[6] {
+                 new Vector2(0f,0f),new Vector2(0f,0f),new Vector2(1f,0f),new Vector2(1f,0f),new Vector2(0f,0f),new Vector2(1f,0f)
+            };
+
+        mf.mesh = m;
     }
 
     // Use to process your families.
@@ -100,7 +127,7 @@ public class GameEngineSystem : FSystem {
 
         if (update)
         {
-            foreach (Target t in GE.Targets) t.ComputeScore();
+            foreach (Target t in GE.Targets) ComputeScore(t);
         }
 
         //Profiler.EndSample();
@@ -162,7 +189,7 @@ public class GameEngineSystem : FSystem {
 
         foreach (LightSource ls in GE.LightSources) ls.hasChanged = false;
         foreach (OpticalComponent op in GE.OpticalComponents) op.hasChanged = false;
-        foreach (Target t in GE.Targets) t.ComputeScore();
+        foreach (Target t in GE.Targets) ComputeScore(t);
 
     }
 
@@ -176,7 +203,11 @@ public class GameEngineSystem : FSystem {
         {
             if (lr.Origin == op) continue;
 
-            float l = op.Collision2(lr);
+            //float l = op.Collision2(lr);
+            float l;
+            if (op.GetType() == typeof(Target))
+                l = Collision2Target(op, lr);
+            else l = Collision2(op, lr);
 
             if (l > 0 && (l < lmin || lmin < 0)) // trouve la plus proche collision
             {
@@ -188,7 +219,8 @@ public class GameEngineSystem : FSystem {
         if (lmin > 0)
         {
             lr.End = opCollision;
-            opCollision.Deflect(lr);
+            //opCollision.Deflect(lr);
+            Deflect(opCollision, lr);
 
             foreach (Transform lchild in lr.transform)
                 Collision(GE, lchild.GetComponent<LightRay>());
@@ -252,7 +284,11 @@ public class GameEngineSystem : FSystem {
             lr.Length1 = GE.LengthMax; // On redonne une long max pour le test Fast collision 
             return true;
         }
-        float l = op.Collision2(lr);
+        //float l = op.Collision2(lr);
+        float l;
+        if (op.GetType() == typeof(Target))
+            l = Collision2Target(op, lr);
+        else l = Collision2(op, lr);
         if (l > 0) return true; // si l'op touche le rayon on l'update
         return false;
     }
@@ -394,5 +430,390 @@ public class GameEngineSystem : FSystem {
 
         r.GetComponent<MeshRenderer>().material.color = r.Col;
 
+    }
+
+    private bool FastCollision(OpticalComponent oc, LightRay lr)
+    {
+        float p = -lr.sin1 * oc.x + lr.cos1 * oc.y;
+        if (p > lr.param1 + oc.radius || p < lr.param1 - oc.radius)
+            return false;
+
+        p = lr.cos1 * (oc.x - lr.StartPosition1.x) + lr.sin1 * (oc.y - lr.StartPosition1.y);
+        if (p < -oc.radius || p > lr.Length1 + oc.radius)
+            return false;
+
+        return true;
+    }
+
+    private float Collision(OpticalComponent oc, LightRay lr, int i)
+    {
+        float cosr, sinr, xr, yr, br;
+        if (i == 1)
+        {
+            if (FastCollision(oc, lr) == false) return -1;  // Pas de collision
+            cosr = lr.cos1;
+            sinr = lr.sin1;
+            xr = lr.StartPosition1.x;
+            yr = lr.StartPosition1.y;
+            br = lr.param1;
+        }
+        else
+        {
+            cosr = lr.cos2;
+            sinr = lr.sin2;
+            xr = lr.StartPosition2.x;
+            yr = lr.StartPosition2.y;
+            br = lr.param2;
+        }
+
+        float b = oc.param;
+
+        float det = -cosr * oc.sin + sinr * oc.cos;
+
+        if (det == 0) return -1;
+
+
+        oc.xc = (cosr * b - oc.cos * br) / det;
+        oc.yc = (sinr * b - oc.sin * br) / det;
+
+
+        if ((cosr > 0 && oc.xc > xr) || (cosr < 0 && oc.xc < xr) || (sinr > 0 && oc.yc > yr) || (sinr < 0 && oc.yc < yr))
+        {
+            float r2 = (oc.xc - oc.x) * (oc.xc - oc.x) + (oc.yc - oc.y) * (oc.yc - oc.y);
+            if (r2 < oc.radius * oc.radius)
+                return (oc.xc - xr) * (oc.xc - xr) + (oc.yc - yr) * (oc.yc - yr);
+        }
+        return -1;
+    }
+
+    private float Collision2(OpticalComponent oc, LightRay lr)
+    {
+        float l1 = Collision(oc, lr, 1);
+        oc.xc1 = oc.xc; oc.yc1 = oc.yc;
+        if (l1 < 0) return -1;
+        float l2 = Collision(oc,lr, 2);
+        oc.xc2 = oc.xc; oc.yc2 = oc.yc;
+        if (l2 < 0) return -1;
+
+        return l1;
+    }
+
+    private float Collision2Target(OpticalComponent oc, LightRay lr)
+    {
+        float l1, l2;
+
+        if ((lr.cos1 > 0 && oc.x < lr.StartPosition1.x - oc.radius) || (lr.cos1 < 0 && oc.x > lr.StartPosition1.x + oc.radius) ||
+             (lr.sin1 > 0 && oc.y < lr.StartPosition1.y - oc.radius) || (lr.sin1 < 0 && oc.y > lr.StartPosition1.y + oc.radius))
+
+            return -1;
+
+        {
+
+            l1 = -lr.sin1 * oc.x + lr.cos1 * oc.y - lr.param1;
+
+
+            if (l1 > oc.radius || l1 < -oc.radius)
+                return -1;
+
+            l2 = -lr.sin2 * oc.x + lr.cos2 * oc.y - lr.param2;
+
+            if (l2 > oc.radius || l2 < -oc.radius)
+                return -1;
+
+            float xo1 = lr.StartPosition1.x;
+            float yo1 = lr.StartPosition1.y;
+            return (oc.x - xo1) * (oc.x - xo1) + (oc.y - yo1) * (oc.y - yo1);
+        }
+    }
+
+    private void Deflect(OpticalComponent oc, LightRay r) {
+        if (oc.GetType() == typeof(Target))
+        {
+            while (r.transform.childCount > 0)
+                FreeLightRay(oc, r.transform.GetChild(0).GetComponent<LightRay>());
+
+            float xo1 = r.StartPosition1.x;
+            float yo1 = r.StartPosition1.y;
+            float xo2 = r.StartPosition2.x;
+            float yo2 = r.StartPosition2.y;
+
+            r.Length1 = Mathf.Sqrt((oc.x - xo1) * (oc.x - xo1) + (oc.y - yo1) * (oc.y - yo1));
+            r.Length2 = Mathf.Sqrt((oc.x - xo2) * (oc.x - xo2) + (oc.y - yo2) * (oc.y - yo2));
+            return;
+        }
+        if (oc.GetType() == typeof(Wall))
+        {
+            while (r.transform.childCount > 0)
+                FreeLightRay(oc, r.transform.GetChild(0).GetComponent<LightRay>());
+
+            float xo1 = r.StartPosition1.x;
+            float yo1 = r.StartPosition1.y;
+            float ao1 = r.Direction1;
+            float xo2 = r.StartPosition2.x;
+            float yo2 = r.StartPosition2.y;
+            float ao2 = r.Direction2;
+
+            r.Length1 = (oc.xc1 - xo1) * r.cos1 + (oc.yc1 - yo1) * r.sin1;
+            r.Length2 = (oc.xc2 - xo2) * r.cos2 + (oc.yc2 - yo2) * r.sin2;
+            return;
+        }
+        if (oc.GetType() == typeof(Lens))
+        {
+            float xo1 = r.StartPosition1.x;
+            float yo1 = r.StartPosition1.y;
+            float ao1 = r.Direction1;
+            float xo2 = r.StartPosition2.x;
+            float yo2 = r.StartPosition2.y;
+            float ao2 = r.Direction2;
+
+            r.Length1 = Mathf.Sqrt((oc.xc1 - xo1) * (oc.xc1 - xo1) + (oc.yc1 - yo1) * (oc.yc1 - yo1));
+            r.Length2 = Mathf.Sqrt((oc.xc2 - xo2) * (oc.xc2 - xo2) + (oc.yc2 - yo2) * (oc.yc2 - yo2));
+
+            LightRay lr = null;
+            if (r.transform.childCount == 0)
+                lr = NewRayLightChild(oc, r);
+            else if (r.transform.childCount == 1)
+                lr = r.transform.GetChild(0).GetComponent<LightRay>();
+            else
+            {
+                while (r.transform.childCount > 1)
+                    FreeLightRay(oc, r.transform.GetChild(0).GetComponent<LightRay>());
+                lr = r.transform.GetChild(0).GetComponent<LightRay>();
+            }
+
+            if (lr == null) return;
+
+            lr.Col = r.Col;
+            lr.Intensity = r.Intensity;
+            lr.StartPosition1 = new Vector3(oc.xc1, oc.yc1, 0);
+            lr.StartPosition2 = new Vector3(oc.xc2, oc.yc2, 0);
+            lr.Direction1 = ao1;
+            lr.Direction2 = ao2;
+            lr.Length1 = 15.0f;
+            lr.Length2 = 15.0f;
+            lr.Origin = oc;
+
+            // Pour une lentille
+            float zz1, theta1, thetaP1;
+            float zz2, theta2, thetaP2;
+
+
+            if (oc.cos > 0.7f || oc.cos < -0.7f)
+            {
+                zz1 = (oc.xc1 - oc.x) / oc.cos;
+                zz2 = (oc.xc2 - oc.x) / oc.cos;
+            }
+            else
+            {
+                zz1 = (oc.yc1 - oc.y) / Mathf.Sin(oc.angle);
+                zz2 = (oc.yc2 - oc.y) / Mathf.Sin(oc.angle);
+            }
+            theta1 = ao1 - (oc.angle - Mathf.PI / 2);
+            theta2 = ao2 - (oc.angle - Mathf.PI / 2);
+
+            if (Mathf.Cos(theta1) < 0)  // Backside
+            {
+                thetaP1 = Mathf.Atan(zz1 / ((Lens)oc).focal + Mathf.Tan(theta1)) + Mathf.PI; // le nouvel angle
+                thetaP2 = Mathf.Atan(zz2 / ((Lens)oc).focal + Mathf.Tan(theta2)) + Mathf.PI; // le nouvel angle
+            }
+            else
+            {
+                thetaP1 = Mathf.Atan(-zz1 / ((Lens)oc).focal + Mathf.Tan(theta1)); // le nouvel angle
+                thetaP2 = Mathf.Atan(-zz2 / ((Lens)oc).focal + Mathf.Tan(theta2)); // le nouvel angle
+            }
+
+            lr.Direction1 = thetaP1 + (oc.angle - Mathf.PI / 2);
+            lr.Direction2 = thetaP2 + (oc.angle - Mathf.PI / 2);
+            //lr.ComputeDir();
+            lr.cos1 = Mathf.Cos(lr.Direction1);
+            lr.sin1 = Mathf.Sin(lr.Direction1);
+            lr.proj1 = lr.StartPosition1.x * lr.cos1 + lr.StartPosition1.y * lr.sin1;
+            lr.param1 = -lr.StartPosition1.x * lr.sin1 + lr.StartPosition1.y * lr.cos1;
+            lr.cos2 = Mathf.Cos(lr.Direction2);
+            lr.sin2 = Mathf.Sin(lr.Direction2);
+            lr.proj2 = lr.StartPosition2.x * lr.cos2 + lr.StartPosition2.y * lr.sin2;
+            lr.param2 = -lr.StartPosition2.x * lr.sin2 + lr.StartPosition2.y * lr.cos2;
+
+            lr.div = lr.Direction2 - lr.Direction1;
+            if (lr.div < 0) lr.div = -lr.div;
+            if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
+            return;
+        }
+        if (oc.GetType() == typeof(LameSemi))
+        {
+            float xo1 = r.StartPosition1.x;
+            float yo1 = r.StartPosition1.y;
+            float ao1 = r.Direction1;
+            float xo2 = r.StartPosition2.x;
+            float yo2 = r.StartPosition2.y;
+            float ao2 = r.Direction2;
+
+            r.Length1 = (oc.xc1 - xo1) * r.cos1 + (oc.yc1 - yo1) * r.sin1;
+            r.Length2 = (oc.xc2 - xo2) * r.cos2 + (oc.yc2 - yo2) * r.sin2;
+
+            LightRay lr = null;
+            LightRay lt = null;
+            if (r.transform.childCount == 0)
+            {
+                lr = NewRayLightChild(oc, r);
+                lt = NewRayLightChild(oc, r);
+            }
+            else if (r.transform.childCount == 1)
+            {
+                lt = r.transform.GetChild(0).GetComponent<LightRay>();
+                lr = NewRayLightChild(oc, r);
+            }
+            else if (r.transform.childCount == 2)
+            {
+                lt = r.transform.GetChild(0).GetComponent<LightRay>();
+                lr = r.transform.GetChild(1).GetComponent<LightRay>();
+            }
+            else
+            {
+                while (r.transform.childCount > 2)
+                    FreeLightRay(oc, r.transform.GetChild(0).GetComponent<LightRay>());
+
+                lt = r.transform.GetChild(0).GetComponent<LightRay>();
+                lr = r.transform.GetChild(1).GetComponent<LightRay>();
+            }
+
+            // Rayon transmis
+            if (lt == null) return;
+
+            lt.Col = r.Col;
+            lt.Intensity = r.Intensity * (1 - ((LameSemi)oc).ReflectionCoef);
+            lt.StartPosition1 = new Vector3(oc.xc1, oc.yc1, 0);
+            lt.StartPosition2 = new Vector3(oc.xc2, oc.yc2, 0);
+            lt.Direction1 = r.Direction1;
+            lt.Direction2 = r.Direction2;
+            lt.Origin = oc;
+            lt.cos1 = Mathf.Cos(lt.Direction1);
+            lt.sin1 = Mathf.Sin(lt.Direction1);
+            lt.proj1 = lt.StartPosition1.x * lt.cos1 + lt.StartPosition1.y * lt.sin1;
+            lt.param1 = -lt.StartPosition1.x * lt.sin1 + lt.StartPosition1.y * lt.cos1;
+            lt.cos2 = Mathf.Cos(lt.Direction2);
+            lt.sin2 = Mathf.Sin(lt.Direction2);
+            lt.proj2 = lt.StartPosition2.x * lt.cos2 + lt.StartPosition2.y * lt.sin2;
+            lt.param2 = -lt.StartPosition2.x * lt.sin2 + lt.StartPosition2.y * lt.cos2;
+
+            lt.div = lt.Direction2 - lt.Direction1;
+            if (lt.div < 0) lt.div = -lt.div;
+            if (lt.div > 2 * Mathf.PI) lt.div -= 2 * Mathf.PI;
+
+
+            //Rayon reflechi
+            if (lr == null) return;
+
+            lr.Col = r.Col;
+            lr.Intensity = r.Intensity * ((LameSemi)oc).ReflectionCoef;
+            lr.StartPosition1 = new Vector3(oc.xc1, oc.yc1, 0);
+            lr.StartPosition2 = new Vector3(oc.xc2, oc.yc2, 0);
+            lr.Direction1 = -ao1 + 2 * oc.angle;
+            lr.Direction2 = -ao2 + 2 * oc.angle;
+            lr.Origin = oc;
+            lr.cos1 = Mathf.Cos(lr.Direction1);
+            lr.sin1 = Mathf.Sin(lr.Direction1);
+            lr.proj1 = lr.StartPosition1.x * lr.cos1 + lr.StartPosition1.y * lr.sin1;
+            lr.param1 = -lr.StartPosition1.x * lr.sin1 + lr.StartPosition1.y * lr.cos1;
+            lr.cos2 = Mathf.Cos(lr.Direction2);
+            lr.sin2 = Mathf.Sin(lr.Direction2);
+            lr.proj2 = lr.StartPosition2.x * lr.cos2 + lr.StartPosition2.y * lr.sin2;
+            lr.param2 = -lr.StartPosition2.x * lr.sin2 + lr.StartPosition2.y * lr.cos2;
+
+            lr.div = lr.Direction2 - lr.Direction1;
+            if (lr.div < 0) lr.div = -lr.div;
+            if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
+            return;
+        }
+        if (oc.GetType() == typeof(Mirror))
+        {
+            float xo1 = r.StartPosition1.x;
+            float yo1 = r.StartPosition1.y;
+            float ao1 = r.Direction1;
+            float xo2 = r.StartPosition2.x;
+            float yo2 = r.StartPosition2.y;
+            float ao2 = r.Direction2;
+
+            r.Length1 = Mathf.Sqrt((oc.xc1 - xo1) * (oc.xc1 - xo1) + (oc.yc1 - yo1) * (oc.yc1 - yo1));
+            r.Length2 = Mathf.Sqrt((oc.xc2 - xo2) * (oc.xc2 - xo2) + (oc.yc2 - yo2) * (oc.yc2 - yo2));
+
+            LightRay lr = null;
+            if (r.transform.childCount == 0)
+                lr = NewRayLightChild(oc,r);
+            else if (r.transform.childCount == 1)
+                lr = r.transform.GetChild(0).GetComponent<LightRay>();
+            else
+            {
+                while (r.transform.childCount > 1)
+                    FreeLightRay(oc, r.transform.GetChild(0).GetComponent<LightRay>());
+                lr = r.transform.GetChild(0).GetComponent<LightRay>();
+            }
+            
+            if (lr == null) return;
+            
+
+            lr.Col = r.Col;
+            lr.Intensity = r.Intensity;
+            lr.StartPosition1 = new Vector3(oc.xc1, oc.yc1, 0);
+            lr.StartPosition2 = new Vector3(oc.xc2, oc.yc2, 0);
+            lr.Direction1 = ao1;
+            lr.Direction2 = ao2;
+            lr.Length1 = 15.0f;
+            lr.Length2 = 15.0f;
+            lr.Origin = oc;
+
+            // Pour un miroir
+
+            lr.Direction1 = -ao1 + 2 * oc.angle;
+            lr.Direction2 = -ao2 + 2 * oc.angle;
+            //lr.ComputeDir();
+            lr.cos1 = Mathf.Cos(lr.Direction1);
+            lr.sin1 = Mathf.Sin(lr.Direction1);
+            lr.proj1 = lr.StartPosition1.x * lr.cos1 + lr.StartPosition1.y * lr.sin1;
+            lr.param1 = -lr.StartPosition1.x * lr.sin1 + lr.StartPosition1.y * lr.cos1;
+            lr.cos2 = Mathf.Cos(lr.Direction2);
+            lr.sin2 = Mathf.Sin(lr.Direction2);
+            lr.proj2 = lr.StartPosition2.x * lr.cos2 + lr.StartPosition2.y * lr.sin2;
+            lr.param2 = -lr.StartPosition2.x * lr.sin2 + lr.StartPosition2.y * lr.cos2;
+
+            lr.div = lr.Direction2 - lr.Direction1;
+            if (lr.div < 0) lr.div = -lr.div;
+            if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
+            return;
+        }
+    }
+
+    protected LightRay NewRayLightChild(OpticalComponent oc, LightRay lr)
+    {
+        if (lr.depth >= oc.DepthMax || oc.RaysReserve.childCount == 0) return null; // Plus de rayons disponible !!
+
+        // Preparation du rayon
+        LightRay r = oc.RaysReserve.GetChild(0).GetComponent<LightRay>();
+        r.transform.parent = lr.transform;
+        r.transform.localScale = Vector3.one;
+        r.depth = lr.depth + 1;
+        return r;
+    }
+
+    protected void FreeLightRay(OpticalComponent oc, LightRay ray) // remove child recursively
+    {
+        foreach (LightRay r in ray.GetComponentsInChildren<LightRay>())
+        {
+            r.transform.parent = oc.RaysReserve;
+            r.End = null;
+            r.Origin = null;
+        }
+    }
+
+    private void ComputeScore(Target t)
+    {
+        t.CollectedIntensity = 0;
+        foreach (LightRay lr in t.Rays.GetComponentsInChildren<LightRay>())
+        {
+            if (lr.End == t)
+            {
+                t.CollectedIntensity += lr.Intensity;
+            }
+        }
     }
 }

@@ -11,14 +11,14 @@ public class Target : OpticalComponent {
     public GameObject Shine;
     public GameObject ScoreText;
 
-    float score=0, scoreSpeed=0.5f;
+    public float score=0, scoreSpeed=0.5f;
 
-    /*public void ResetTarget()
+    public void ResetTarget()
     {
         CollectedIntensity = 0;
-    }*/
+    }
 
-    override public float Collision2(LightRay lr)
+    /*override public float Collision2(LightRay lr)
     {
         float l1, l2;
 
@@ -61,7 +61,7 @@ public class Target : OpticalComponent {
         r.Length1 = Mathf.Sqrt((x - xo1) * (x - xo1) + (y - yo1) * (y - yo1));
         r.Length2 = Mathf.Sqrt((x - xo2) * (x - xo2) + (y - yo2) * (y - yo2));
        
-    }
+    }*/
 
 
     override public void Update()
@@ -88,7 +88,7 @@ public class Target : OpticalComponent {
     }
 
 
-    public void ComputeScore()
+    /*public void ComputeScore()
     {
         CollectedIntensity = 0;
         foreach (LightRay lr in Rays.GetComponentsInChildren<LightRay>())
@@ -98,6 +98,6 @@ public class Target : OpticalComponent {
                 CollectedIntensity += lr.Intensity;
             }
         }
-    }
+    }*/
 
 }

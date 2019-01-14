@@ -22,7 +22,7 @@ public class LightRay : MonoBehaviour {
     public const float EPSILON = 0.00001f; // pour les erreurs d'arrondis
 
     //Mesh mesh;
-    void InitilizedMesh()
+    /*void InitilizedMesh()
     {
         MeshFilter mf = gameObject.AddComponent<MeshFilter>();
         
@@ -55,7 +55,7 @@ public class LightRay : MonoBehaviour {
     public void Initiliaze()
     {
         InitilizedMesh();
-    }
+    }*/
 
     /*public void Draw() {
         // Draw the rays recursively;

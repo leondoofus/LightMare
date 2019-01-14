@@ -16,8 +16,8 @@ public class OpticalComponent : MonoBehaviour {
     public Transform PlayGround;
 
 
-    Vector3 OldPosition;
-    Quaternion OldRotation;
+    public Vector3 OldPosition;
+    public Quaternion OldRotation;
     virtual public void Update()
     {
         if (OldPosition != transform.position || transform.rotation != OldRotation)
@@ -29,7 +29,7 @@ public class OpticalComponent : MonoBehaviour {
         }
      }
 
-    public bool FastCollision(LightRay lr)
+    /*public bool FastCollision(LightRay lr)
     {
         float p = -lr.sin1 * x + lr.cos1 * y;
         if (p > lr.param1 + radius || p < lr.param1 - radius)
@@ -40,7 +40,7 @@ public class OpticalComponent : MonoBehaviour {
             return false;
 
         return true;
-    }
+    }*/
 
     public void ComputeDir()
     {
@@ -55,9 +55,9 @@ public class OpticalComponent : MonoBehaviour {
     }
 
 
-    float xc, yc;
+    public float xc, yc;
 
-    public float Collision(LightRay lr, int i)
+    /*public float Collision(LightRay lr, int i)
     {
         float cosr, sinr, xr, yr, br;
         if (i == 1)
@@ -96,10 +96,10 @@ public class OpticalComponent : MonoBehaviour {
                 return (xc - xr) * (xc - xr) + (yc - yr) * (yc - yr);
         }
         return -1;
-    }
+    }*/
     
-    protected float xc1, yc1, xc2, yc2;
-    virtual public float Collision2(LightRay lr)
+    public float xc1, yc1, xc2, yc2;
+    /*virtual public float Collision2(LightRay lr)
     {
         float l1 = Collision(lr, 1);
         xc1 = xc; yc1 = yc;
@@ -133,6 +133,6 @@ public class OpticalComponent : MonoBehaviour {
             r.End = null;
             r.Origin = null;
         }
-    }
+    }*/
 
 }

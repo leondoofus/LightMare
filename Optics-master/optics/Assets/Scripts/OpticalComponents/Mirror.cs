@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mirror : OpticalComponent {
 
 
-    override public void Deflect(LightRay r)
+    /*override public void Deflect(LightRay r)
     {
 
         float xo1 = r.StartPosition1.x;
@@ -66,6 +66,6 @@ public class Mirror : OpticalComponent {
         lr.div = lr.Direction2 - lr.Direction1;
         if (lr.div < 0) lr.div = -lr.div;
         if (lr.div > 2 * Mathf.PI) lr.div -= 2 * Mathf.PI;
-    }
+    }*/
 
 }
