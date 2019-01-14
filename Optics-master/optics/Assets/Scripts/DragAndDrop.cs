@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class DragAndDrop : MonoBehaviour {
 
-    
     public bool dragging = false;
     public bool moving = false;
     public bool rotating = false;
@@ -14,10 +13,9 @@ public class DragAndDrop : MonoBehaviour {
     public GameObject RotationCircle;
     public GameObject Handle;
     public bool selected=false;
-
-    public float PressedTime;
-    public float ClickDuration = 0.1f; // maximum click duration 
     public Rigidbody2D rb;
+    public float PressedTime;
+    public float ClickDuration = 0.1f; // maximum click duration
 
 
     public Vector3 PositionOffset;
@@ -27,7 +25,7 @@ public class DragAndDrop : MonoBehaviour {
     public float angleAct;
     public float angleSet;
 
-    private void Start()
+    /*private void Start()
     {
         rb = transform.GetComponent<Rigidbody2D>();
     }
@@ -100,7 +98,7 @@ public class DragAndDrop : MonoBehaviour {
 
         //rb.constraints = RigidbodyConstraints2D.FreezeRotation;
         rb.constraints = RigidbodyConstraints2D.FreezeAll;
-    }
+    }*/
 
 
 
@@ -113,7 +111,7 @@ public class DragAndDrop : MonoBehaviour {
 
    
 
-    void Update()
+    /*void Update()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         Vector3 rayPoint = ray.GetPoint(distance);
@@ -168,5 +166,5 @@ public class DragAndDrop : MonoBehaviour {
             }
             
         }
-    }
+    }*/
 }

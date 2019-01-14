@@ -267,6 +267,7 @@ MonoBehaviour:
   DepthMax: 10
   running: 0
   levelLoaded: 0
+  coroutineStarted: 0
 --- !u!4 &689391236
 Transform:
   m_ObjectHideFlags: 0
