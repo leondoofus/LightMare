@@ -318,9 +318,9 @@ MonoBehaviour:
   Rays: {fileID: 0}
   RaysReserve: {fileID: 0}
   N: 100
-  Div: 0.6
+  Div: 0
   Length: 15
-  radius: 0
+  radius: 1
   LightRays: []
   hasChanged: 1
   Color: {r: 1, g: 1, b: 0.8, a: 0.5}

@@ -3,15 +3,17 @@ using FYFY;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class StartGESystem : FSystem {
     private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
 
     public StartGESystem()
     {
-        /*foreach (GameObject go in _GE)
-            DrawRays(go);
-        _GE.addEntryCallback(DrawRays);*/
+        if (SceneManager.GetActiveScene().name != "level")
+            foreach (GameObject go in _GE)
+                DrawRays(go);
+        _GE.addEntryCallback(DrawRays);
     }
 
     private void DrawRays(GameObject go)

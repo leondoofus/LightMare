@@ -53,7 +53,7 @@ public class LevelSelectorSystem : FSystem {
                     if (GE.running) return;
                     //Debug.Log("Loading: " + "Level" + go.name[go.name.Length - 1].ToString());
                     //SceneManager.LoadScene("Level" + Int32.Parse(go.name[go.name.Length - 1].ToString()), LoadSceneMode.Single);
-                    SceneManager.LoadScene("level", LoadSceneMode.Single);
+                    SceneManager.LoadScene("Level4", LoadSceneMode.Single);
                     //Instantiate(Int32.Parse(go.name.Substring(11)));
                     SceneManager.UnloadSceneAsync("MiniMap");
                     LI.GetComponent<LevelIndex>().CurrentLevel = Int32.Parse(go.name[go.name.Length - 1].ToString());
