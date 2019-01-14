@@ -20,6 +20,8 @@ public class OpticalComponent : MonoBehaviour {
     public Quaternion OldRotation;
     virtual public void Update()
     {
+        //FYFYGameEngine GE = GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>();
+        //if (!GE.running) return;
         if (OldPosition != transform.position || transform.rotation != OldRotation)
         {
             ComputeDir();

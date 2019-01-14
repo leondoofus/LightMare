@@ -9,7 +9,6 @@ public class DragAndDropSystem : FSystem {
 
     public DragAndDropSystem()
     {
-       
         foreach (GameObject go in _dd)
         {
             go.GetComponent<DragAndDrop>().rb = go.GetComponent<DragAndDrop>().transform.GetComponent<Rigidbody2D>();

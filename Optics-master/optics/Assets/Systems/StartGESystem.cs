@@ -1,15 +1,17 @@
 ﻿using UnityEngine;
 using FYFY;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
 
 public class StartGESystem : FSystem {
     private Family _GE = FamilyManager.getFamily(new AllOfComponents(typeof(FYFYGameEngine)));
 
     public StartGESystem()
     {
-        foreach (GameObject go in _GE)
+        /*foreach (GameObject go in _GE)
             DrawRays(go);
-        _GE.addEntryCallback(DrawRays);
+        _GE.addEntryCallback(DrawRays);*/
     }
 
     private void DrawRays(GameObject go)

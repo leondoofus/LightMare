@@ -6,6 +6,9 @@ TagManager:
   tags:
   - LightSource
   - FixedRotation
+  - PlayGround
+  - Rays
+  - GenericButton
   layers:
   - Default
   - TransparentFX

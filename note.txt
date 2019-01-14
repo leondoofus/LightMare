@@ -9,6 +9,6 @@ Aussi dans les mini collisions -> duplication de calcul
 
 Mouse Events -> Pointer Sensitive
 
-Coroutine dans un composant utilisé par plusieurs systèmes -> blocage d'utilisation (un bool par ex)
+Coroutine dans un composant utilisé par plusieurs systèmes -> blocage d'utilisation (un bool par ex), init de la coroutine dans toutes les scènes auxquelles elle appartient
 
 DragAndDrop -> Complexifier le code, gestion de movement, accessibilité 
