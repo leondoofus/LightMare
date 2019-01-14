@@ -13,7 +13,6 @@ public class GameEngineSystem : FSystem {
         {
             foreach (GameObject go in _GE)
             {
-                Debug.Log("ici dans system");
                 FYFYGameEngine ge = go.GetComponent<FYFYGameEngine>();
                 ge.RaysReserve = GameObject.Find("RaysReserve").transform;  // find and deactivate
                 ge.RaysReserve.gameObject.SetActive(false);
@@ -26,6 +25,13 @@ public class GameEngineSystem : FSystem {
             }
             SceneManager.LoadScene("MiniMap");
         }
+        else
+            foreach (GameObject go in _GE)
+            {
+                FYFYGameEngine ge = go.GetComponent<FYFYGameEngine>();
+                _mainLoop.First().GetComponent<MainLoop>().StartCoroutine(FillRaysReserve(ge));
+                
+            }
     }
 
     private IEnumerator FillRaysReserve(FYFYGameEngine ge)

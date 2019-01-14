@@ -10,18 +10,18 @@ public class DragAndDrop : MonoBehaviour {
     public bool moving = false;
     public bool rotating = false;
 
-    private float distance;
+    public float distance;
     public GameObject RotationCircle;
     public GameObject Handle;
     public bool selected=false;
 
-    float PressedTime;
-    const float ClickDuration = 0.1f; // maximum click duration 
-    Rigidbody2D rb;
+    public float PressedTime;
+    public float ClickDuration = 0.1f; // maximum click duration 
+    public Rigidbody2D rb;
 
 
-    Vector3 PositionOffset;
-    Vector3 InitialPos;
+    public Vector3 PositionOffset;
+    public Vector3 InitialPos;
     public float angleMouse0;
 
     public float angleAct;

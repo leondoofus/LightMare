@@ -19,7 +19,6 @@ public class FYFYGameEngine : MonoBehaviour {
 
     /*void Start()
     {
-        Debug.Log("ici dans component");
         RaysReserve = GameObject.Find("RaysReserve").transform;  // find and deactivate
         RaysReserve.gameObject.SetActive(false);
 
