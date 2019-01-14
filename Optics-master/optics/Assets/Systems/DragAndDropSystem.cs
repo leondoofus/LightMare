@@ -166,7 +166,7 @@ public class DragAndDropSystem : FSystem {
                     //dd2.moving = false;
                     //dd2.rotating = false;
                     dd2.dragging = false;
-                    //dd2.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    dd2.rb.constraints = RigidbodyConstraints2D.FreezeAll;
                 }
             }   
         }

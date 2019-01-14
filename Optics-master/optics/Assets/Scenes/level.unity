@@ -896,11 +896,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f687f764b14e3ec4383ddbabd78d29d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightSource: {fileID: 1168740660177996, guid: 840bbede42df12c44b7b526fdccd5036,
+  LightSource: {fileID: 1410141758224904, guid: 840bbede42df12c44b7b526fdccd5036,
     type: 2}
-  Laser: {fileID: 1168740660177996, guid: 302e9869ec3b51344a6433e441a9924d, type: 2}
-  Lens: {fileID: 1894909864907206, guid: 10dce69aab6227b45ba6e320757bbbaf, type: 2}
-  Mirror: {fileID: 1968159265388890, guid: 617a5f65e357ef84fafe04ad827b8659, type: 2}
+  Laser: {fileID: 1410141758224904, guid: 302e9869ec3b51344a6433e441a9924d, type: 2}
+  Lens: {fileID: 1835347792666338, guid: 10dce69aab6227b45ba6e320757bbbaf, type: 2}
+  Mirror: {fileID: 1300168042588800, guid: 617a5f65e357ef84fafe04ad827b8659, type: 2}
   Target: {fileID: 1863020574822244, guid: bf90507dee5a43343b5efbdf439cd3cf, type: 2}
   Wall: {fileID: 1281146447401316, guid: f218e551fc8d3ab4aba1debfc2970427, type: 2}
 --- !u!4 &2085948327
