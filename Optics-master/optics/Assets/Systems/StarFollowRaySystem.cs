@@ -19,7 +19,7 @@ public class StarFollowRaySystem : FSystem {
                 //init Star
                 sf.Pos = 0;
                 sf.transform.SetParent(LS.PlayGround);
-                sf.Ray = LS.LightRays[Random.Range(0, LS.N)];
+                sf.Ray = LS.LightRays[Random.Range(0, LS.N - 1)];
                 if (sf.Ray == null) { Debug.Log("PRODUCTEUR NULL"); }
                 sf.transform.localScale = Vector3.one;
                 Vector3 SPos;

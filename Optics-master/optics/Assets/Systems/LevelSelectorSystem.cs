@@ -29,10 +29,13 @@ public class LevelSelectorSystem : FSystem {
             Family _buttons = FamilyManager.getFamily(new AnyOfTags("GenericButton"));
             foreach (GameObject go in _buttons)
             {
-                Debug.Log(go.name.Substring(7));
                 if (Int32.Parse(go.name.Substring(7)) > max)
                     go.SetActive(false);
             }
+        }
+        else
+        {
+            Debug.Log("Debugging");
         }
     }
 
@@ -83,7 +86,7 @@ public class LevelSelectorSystem : FSystem {
             }
             if (GE.running)
             {
-                bool check = true;
+                //bool check = true;
                 foreach (Target t in GE.Targets)
                     if (t.score != 100) return;
                 if (_LevelIndex.First().GetComponent<LevelIndex>().CurrentLevel == _LevelIndex.First().GetComponent<LevelIndex>().numberLevel)
