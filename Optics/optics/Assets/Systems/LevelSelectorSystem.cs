@@ -87,7 +87,7 @@ public class LevelSelectorSystem : FSystem {
                 //bool check = true;
                 foreach (Target t in GE.Targets)
                 {
-                    if (t.score < 0.99) return;
+                    if (t.score < 0.95) return;
                 }
                 
                 if (_LevelIndex.First().GetComponent<LevelIndex>().CurrentLevel == _LevelIndex.First().GetComponent<LevelIndex>().numberLevel)

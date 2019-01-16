@@ -20,6 +20,7 @@ public class StartGESystem : FSystem {
 
     private void DrawRays(GameObject go)
     {
+        if (SceneManager.GetActiveScene().name != "level") return;
         FYFYGameEngine GE = go.GetComponent<FYFYGameEngine>();
         GE.LightSources = Object.FindObjectsOfType<LightSource>();
         GE.OpticalComponents = Object.FindObjectsOfType<OpticalComponent>();

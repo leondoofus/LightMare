@@ -1,5 +1,6 @@
-laser -2.0 1.21 0
-lens -2.84 -1.45 0
-target -1.5 1.21 0
-mirror -1.66 -1.45 0
+laser -5 2 0
+laser -5 -2 0
+target 0 0 0
+mirror 5 3 0
+mirror 5 -3 0
 EOF

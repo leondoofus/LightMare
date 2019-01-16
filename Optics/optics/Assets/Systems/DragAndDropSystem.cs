@@ -4,8 +4,9 @@ using FYFY_plugins.PointerManager;
 
 public class DragAndDropSystem : FSystem {
     
-    private Family _ddGO = FamilyManager.getFamily(new AllOfComponents(typeof(PointerOver)));
+    private Family _ddGO = FamilyManager.getFamily(new AllOfComponents(typeof(PointerOver)), new NoneOfComponents(typeof(LightSource), typeof(Target)));
     private Family _dd = FamilyManager.getFamily(new AllOfComponents(typeof(DragAndDrop)));
+    private Family _ss = FamilyManager.getFamily(new AllOfComponents(typeof(PointerOver)), new AnyOfComponents(typeof(LightSource),typeof(Target)));
     private bool created = false;
 
     public DragAndDropSystem()
@@ -133,6 +134,7 @@ public class DragAndDropSystem : FSystem {
 
                 if (dd.moving)
                 {
+                    if (_ss.First() != null) return;
                     if (rb)
                     {
                         Vector2 f;
@@ -161,12 +163,39 @@ public class DragAndDropSystem : FSystem {
             if (Input.GetMouseButton(0))
             {
                 DragAndDrop dd2 = go2.GetComponent<DragAndDrop>();
+
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                Vector3 rayPoint = ray.GetPoint(dd2.distance);
+
+                Rigidbody2D rb = dd2.transform.GetComponent<Rigidbody2D>();
+
+                if (dd2.moving)
+                {
+                    if (_ss.First() != null) return;
+                    if (rb)
+                    {
+                        Vector2 f;
+                        if (!dd2.selected)
+                        {
+                            f.x = rayPoint.x - dd2.PositionOffset.x - dd2.transform.position.x;
+                            f.y = rayPoint.y - dd2.PositionOffset.y - dd2.transform.position.y;
+                        }
+                        else
+                        {
+                            float r;
+                            Vector3 v = rayPoint - dd2.PositionOffset - dd2.InitialPos;
+                            v.z = 0;
+
+                            r = Mathf.Clamp01(0.1f + 0.2f * v.magnitude);
+                            f.x = (r * (rayPoint.x - dd2.PositionOffset.x) + (1 - r) * dd2.InitialPos.x) - dd2.transform.position.x;
+                            f.y = (r * (rayPoint.y - dd2.PositionOffset.y) + (1 - r) * dd2.InitialPos.y) - dd2.transform.position.y;
+                        }
+                        dd2.transform.GetComponent<Rigidbody2D>().AddForce(10 * f);
+                    }
+                }
+
                 if (dd2.rotating)
                 {
-                    Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                    Vector3 rayPoint = ray.GetPoint(dd2.distance);
-                    Rigidbody2D rb3 = dd2.transform.GetComponent<Rigidbody2D>();
-
                     Vector2 f;
                     f.x = rayPoint.x - dd2.transform.position.x;
                     f.y = rayPoint.y - dd2.transform.position.y;
@@ -181,7 +210,7 @@ public class DragAndDropSystem : FSystem {
 
                     float angle = Mathf.DeltaAngle(dd2.angleAct, dd2.angleSet);
 
-                    rb3.AddTorque(angle * 0.01f);
+                    rb.AddTorque(angle * 0.01f);
                 }
             }
             if (Input.GetMouseButtonUp(0))
