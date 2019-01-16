@@ -1,0 +1,6 @@
+laser -2 1 0
+laser -2 -1 0
+target 0 0 0
+mirror 2 1 0
+mirror 2 -1 0
+EOF
