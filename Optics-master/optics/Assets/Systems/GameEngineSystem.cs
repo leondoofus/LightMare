@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿    using UnityEngine;
 using FYFY;
 using UnityEngine.SceneManagement;
 using System.Collections;
@@ -489,10 +489,12 @@ public class GameEngineSystem : FSystem {
     private float Collision2(OpticalComponent oc, LightRay lr)
     {
         float l1 = Collision(oc, lr, 1);
-        oc.xc1 = oc.xc; oc.yc1 = oc.yc;
+        oc.xc1 = oc.xc;
+        oc.yc1 = oc.yc;
         if (l1 < 0) return -1;
         float l2 = Collision(oc,lr, 2);
-        oc.xc2 = oc.xc; oc.yc2 = oc.yc;
+        oc.xc2 = oc.xc;
+        oc.yc2 = oc.yc;
         if (l2 < 0) return -1;
 
         return l1;
@@ -553,8 +555,8 @@ public class GameEngineSystem : FSystem {
             float yo2 = r.StartPosition2.y;
             float ao2 = r.Direction2;
 
-            r.Length1 = (oc.xc1 - xo1) * r.cos1 + (oc.yc1 - yo1) * r.sin1;
-            r.Length2 = (oc.xc2 - xo2) * r.cos2 + (oc.yc2 - yo2) * r.sin2;
+            r.Length1 = (oc.xc1 - xo1) * r.cos1  + (oc.yc1 - yo1) * r.sin1;
+            r.Length2 = (oc.xc2 - xo2) * r.cos2  + (oc.yc2 - yo2) * r.sin2;
             return;
         }
         if (oc.GetType() == typeof(Lens))

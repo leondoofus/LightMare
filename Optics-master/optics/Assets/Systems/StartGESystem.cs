@@ -65,5 +65,6 @@ public class StartGESystem : FSystem {
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
+
 	}
 }

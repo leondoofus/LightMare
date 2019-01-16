@@ -64,7 +64,7 @@ public class Target : OpticalComponent {
     }*/
 
 
-    override public void Update()
+    /*override public void Update()
     {
         base.Update();
         Color c = Shine.GetComponent<Image>().color;
@@ -85,7 +85,7 @@ public class Target : OpticalComponent {
         Shine.GetComponent<Image>().color = c;
         ScoreText.GetComponent<Text>().text = Mathf.RoundToInt(score * 100) + "%";
         ScoreText.GetComponent<Text>().fontSize= (int) (20+40*score);
-    }
+    }*/
 
 
     /*public void ComputeScore()

@@ -3,43 +3,51 @@ using FYFY;
 using UnityEngine.UI;
 
 public class OpticalComponentSystem : FSystem {
-    private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(OpticalComponent)));
+    //private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(OpticalComponent)));
+    private Family _OC = FamilyManager.getFamily(new AnyOfComponents(typeof(Wall), typeof(Target),
+                                                                     typeof(Lens), typeof(Mirror), typeof(LameSemi)));
+    //private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(Mirror)));
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
-        /*foreach (GameObject go in _OC)
+        foreach (GameObject go in _OC)
         {
-            OpticalComponent oc = go.GetComponent<OpticalComponent>();
+            OpticalComponent oc = go.GetComponentInParent<OpticalComponent>();
+
             if (oc.OldPosition != oc.transform.position || oc.transform.rotation != oc.OldRotation)
             {
                 ComputeDir(oc);
                 oc.OldPosition = oc.transform.position;
                 oc.OldRotation = oc.transform.rotation;
                 oc.hasChanged = true;
-                if (oc.GetType() == typeof(Target))
-                {
-                    Target t = (Target)oc;
-                    Color c = t.Shine.GetComponent<Image>().color;
-                    float I = Mathf.Clamp01((t.CollectedIntensity / t.TargetIntensity));
-
-                    if (t.score < I)
-                    {
-                        t.score += Time.deltaTime * t.scoreSpeed;
-                        if (t.score > I) t.score = I;
-                    }
-                    else if (t.score > I)
-                    {
-                        t.score -= Time.deltaTime * t.scoreSpeed;
-                        if (t.score < 0) t.score = 0;
-                    }
-
-                    c.a = Mathf.Sqrt(t.score) * (0.6f + 0.4f * Mathf.Cos(1.5f * Mathf.PI * Time.time));
-                    t.Shine.GetComponent<Image>().color = c;
-                    t.ScoreText.GetComponent<Text>().text = Mathf.RoundToInt(t.score * 100) + "%";
-                    t.ScoreText.GetComponent<Text>().fontSize = (int)(20 + 40 * t.score);
-                }
             }
-        }*/
+
+            if (oc.GetComponent<Target>() != null)
+            {
+                
+                Target t = (Target)oc;
+                Color c = t.Shine.GetComponent<Image>().color;
+                float I = Mathf.Clamp01((t.CollectedIntensity / t.TargetIntensity));
+                Debug.Log("I" + t.CollectedIntensity);
+
+                if (t.score < I)
+                {
+                    t.score += Time.deltaTime * t.scoreSpeed;
+                    if (t.score > I) t.score = I;
+                }
+                else if (t.score > I)
+                {
+                    t.score -= Time.deltaTime * t.scoreSpeed;
+                    if (t.score < 0) t.score = 0;
+                }
+
+                c.a = Mathf.Sqrt(t.score) * (0.6f + 0.4f * Mathf.Cos(1.5f * Mathf.PI * Time.time));
+                t.Shine.GetComponent<Image>().color = c;
+                t.ScoreText.GetComponent<Text>().text = Mathf.RoundToInt(t.score * 100) + "%";
+                t.ScoreText.GetComponent<Text>().fontSize = (int)(20 + 40 * t.score);
+            } 
+
+        }
 	}
 
     private void ComputeDir(OpticalComponent oc)

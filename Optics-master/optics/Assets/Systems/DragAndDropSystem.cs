@@ -6,17 +6,31 @@ public class DragAndDropSystem : FSystem {
     
     private Family _ddGO = FamilyManager.getFamily(new AllOfComponents(typeof(PointerOver)));
     private Family _dd = FamilyManager.getFamily(new AllOfComponents(typeof(DragAndDrop)));
+    private bool created = false;
 
     public DragAndDropSystem()
     {
         foreach (GameObject go in _dd)
         {
             go.GetComponent<DragAndDrop>().rb = go.GetComponent<DragAndDrop>().transform.GetComponent<Rigidbody2D>();
+            created = true;
         }
     }
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
+        if (!created)
+        {
+            if (_dd.First() == null) return;
+            else
+            {
+                foreach (GameObject g in _dd)
+                {
+                    g.GetComponent<DragAndDrop>().rb = g.GetComponent<DragAndDrop>().transform.GetComponent<Rigidbody2D>();
+                    created = true;
+                }
+            }
+        }
         GameObject go = _ddGO.First();
         if (go != null)
         {

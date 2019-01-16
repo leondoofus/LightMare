@@ -33,10 +33,6 @@ public class LevelSelectorSystem : FSystem {
                     go.SetActive(false);
             }
         }
-        else
-        {
-            Debug.Log("Debugging");
-        }
     }
 
     // Use to process your families.
