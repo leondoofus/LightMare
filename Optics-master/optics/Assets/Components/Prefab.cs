@@ -10,6 +10,6 @@ public class Prefab : MonoBehaviour
     public GameObject Mirror;
     public GameObject Target;
     public GameObject Wall;
-
+    public GameObject LameSemi;
 }
 

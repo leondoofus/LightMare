@@ -91,7 +91,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 224113864714380746}
-  - component: {fileID: 114743107668032444}
   - component: {fileID: 114031506912486218}
   - component: {fileID: 50196303501327026}
   - component: {fileID: 58477305372378002}
@@ -246,32 +245,6 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 1, y: -1}
   m_UseGraphicAlpha: 1
---- !u!114 &114743107668032444
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1863020574822244}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93a8992178a25bf4591fea2a2d4f4775, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  dragging: 0
-  moving: 0
-  rotating: 0
-  distance: 0
-  RotationCircle: {fileID: 0}
-  Handle: {fileID: 0}
-  selected: 0
-  rb: {fileID: 0}
-  PressedTime: 0
-  ClickDuration: 0.1
-  PositionOffset: {x: 0, y: 0, z: 0}
-  InitialPos: {x: 0, y: 0, z: 0}
-  angleMouse0: 0
-  angleAct: 0
-  angleSet: 0
 --- !u!114 &114774331756816326
 MonoBehaviour:
   m_ObjectHideFlags: 1

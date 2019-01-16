@@ -52,10 +52,11 @@ public class LevelSelectorSystem : FSystem {
                     if (GE.running) return;
                     //Debug.Log("Loading: " + "Level" + go.name[go.name.Length - 1].ToString());
                     //SceneManager.LoadScene("Level" + Int32.Parse(go.name[go.name.Length - 1].ToString()), LoadSceneMode.Single);
-                    SceneManager.LoadScene("Level4", LoadSceneMode.Single);
+                    SceneManager.LoadScene("level", LoadSceneMode.Single);
                     //Instantiate(Int32.Parse(go.name.Substring(11)));
                     SceneManager.UnloadSceneAsync("MiniMap");
                     LI.GetComponent<LevelIndex>().CurrentLevel = Int32.Parse(go.name[go.name.Length - 1].ToString());
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Load scene " + LI.GetComponent<LevelIndex>().CurrentLevel);
                     //LV.CurrentLevel = Int32.Parse(go.name[go.name.Length - 1].ToString());
                     GE.levelLoaded = true;
                 }
@@ -82,16 +83,24 @@ public class LevelSelectorSystem : FSystem {
             }
             if (GE.running)
             {
+                if (SceneManager.GetActiveScene().name == "MiniMap") return;
                 //bool check = true;
                 foreach (Target t in GE.Targets)
-                    if (t.score != 100) return;
+                {
+                    if (t.score < 0.99) return;
+                }
+                
                 if (_LevelIndex.First().GetComponent<LevelIndex>().CurrentLevel == _LevelIndex.First().GetComponent<LevelIndex>().numberLevel)
                 {
                     SceneManager.UnloadSceneAsync("level");
                     SceneManager.LoadScene("MiniMap", LoadSceneMode.Single);
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Finish scene " + LI.GetComponent<LevelIndex>().CurrentLevel);
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Finish game");
                 } else
                 {
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Finish level " + LI.GetComponent<LevelIndex>().CurrentLevel);
                     _LevelIndex.First().GetComponent<LevelIndex>().CurrentLevel += 1;
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Load scene " + LI.GetComponent<LevelIndex>().CurrentLevel);
                     _LevelIndex.First().GetComponent<LevelIndex>().progression = Math.Max(_LevelIndex.First().GetComponent<LevelIndex>().progression,
                                                                                           _LevelIndex.First().GetComponent<LevelIndex>().CurrentLevel);
                     string line = _LevelIndex.First().GetComponent<LevelIndex>().progression.ToString() + " " +

@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
+using System.Diagnostics;
 
 public class FYFYGameEngine : MonoBehaviour {
     // Advice: FYFY component aims to contain only public members (according to Entity-Component-System paradigm).
@@ -16,6 +18,21 @@ public class FYFYGameEngine : MonoBehaviour {
     public bool levelLoaded = false;
 
     public bool coroutineStarted = false;
+
+    // Trace
+    private string logFile = DateTime.Now.ToString().Replace(".", "").Replace("/", " ").Replace(":", " ") + " Log";
+    public Stopwatch globalWatch = new Stopwatch();
+
+    public void log(String s)
+    {
+        System.IO.StreamWriter file = new System.IO.StreamWriter("Assets/Logs/" + logFile + ".txt", true);
+
+        file.WriteLine(DateTime.Now + "." + DateTime.Now.Millisecond + ";" + globalWatch.ElapsedMilliseconds +
+            ";" + s);
+
+        file.Close();
+
+    }
 
     /*void Start()
     {

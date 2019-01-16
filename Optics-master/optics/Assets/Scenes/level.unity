@@ -896,13 +896,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f687f764b14e3ec4383ddbabd78d29d3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  LightSource: {fileID: 1946820826344162, guid: 840bbede42df12c44b7b526fdccd5036,
+  LightSource: {fileID: 1126839492486974, guid: 840bbede42df12c44b7b526fdccd5036,
     type: 2}
-  Laser: {fileID: 1410141758224904, guid: 302e9869ec3b51344a6433e441a9924d, type: 2}
+  Laser: {fileID: 1126839492486974, guid: 302e9869ec3b51344a6433e441a9924d, type: 2}
   Lens: {fileID: 1726355722715076, guid: 10dce69aab6227b45ba6e320757bbbaf, type: 2}
   Mirror: {fileID: 1235421659303408, guid: 617a5f65e357ef84fafe04ad827b8659, type: 2}
   Target: {fileID: 1863020574822244, guid: bf90507dee5a43343b5efbdf439cd3cf, type: 2}
   Wall: {fileID: 1629063095614720, guid: e3c33fee87a9eac40b85349aa7c575c3, type: 2}
+  LameSemi: {fileID: 1621298748866232, guid: ce002001ea1a8fe4198eb8ea868dba80, type: 2}
 --- !u!4 &2085948327
 Transform:
   m_ObjectHideFlags: 0

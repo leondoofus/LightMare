@@ -11,6 +11,7 @@ public class GameEngineSystem : FSystem {
     {
         if (SceneManager.GetActiveScene().name == "BaseLevel")
         {
+            _GE.First().GetComponent<FYFYGameEngine>().globalWatch.Start();
             foreach (GameObject go in _GE)
             {
                 FYFYGameEngine ge = go.GetComponent<FYFYGameEngine>();

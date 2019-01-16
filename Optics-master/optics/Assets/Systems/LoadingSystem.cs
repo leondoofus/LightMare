@@ -90,6 +90,7 @@ public class LoadingSystem : FSystem
                     obj.GetComponent<Target>().PlayGround = play.transform;
                     obj.GetComponent<Target>().Rays = ray;
                     obj.GetComponent<Target>().RaysReserve = reserve;
+                    GameObjectManager.removeComponent<DragAndDrop>(obj);
                     GameObjectManager.bind(obj);
                     optic.Add(obj);
                     opt++;
@@ -116,7 +117,17 @@ public class LoadingSystem : FSystem
                     optic.Add(obj);
                     opt++;
                     break;
-
+                case "lamesemi":
+                    obj = UnityEngine.Object.Instantiate(p.GetComponent<Prefab>().LameSemi, new Vector3(0, 0, 0), Quaternion.identity, play.GetComponent<Transform>());
+                    obj.transform.Translate(new Vector3((float.Parse(words[1]) * ratio), float.Parse(words[2]) * ratio, 0));
+                    obj.transform.Rotate(new Vector3(0, 0, float.Parse(words[3])));
+                    obj.GetComponent<LameSemi>().PlayGround = play.transform;
+                    obj.GetComponent<LameSemi>().Rays = ray;
+                    obj.GetComponent<LameSemi>().RaysReserve = reserve;
+                    GameObjectManager.bind(obj);
+                    optic.Add(obj);
+                    opt++;
+                    break;
 
             }
             line = reader.ReadLine();

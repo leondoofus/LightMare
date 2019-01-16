@@ -41,6 +41,7 @@ public class DragAndDropSystem : FSystem {
                 {
                     if (!go2.Equals(go))
                     {
+                        if (go2.GetComponent<DragAndDrop>().dragging) return;
                         DragAndDrop ddcancel = go2.GetComponent<DragAndDrop>();
                         ddcancel.dragging = false;
                         ddcancel.moving = false;
@@ -59,6 +60,8 @@ public class DragAndDropSystem : FSystem {
                 dd.angleSet = dd.transform.localEulerAngles.z;
 
                 dd.PressedTime = Time.time;
+                GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Mouse Down;"+go.name+";"+go.transform.position.x+";"+go.transform.position.y+";"
+                                                                                    +go.transform.rotation.x+";"+go.transform.rotation.y);
             }
             if (Input.GetMouseButtonUp(0))
             {
@@ -66,17 +69,27 @@ public class DragAndDropSystem : FSystem {
                 {
                     dd.selected = !dd.selected;
                     if (dd.Handle) dd.Handle.SetActive(dd.selected);
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Mouse Up;"+go.name+";"+"selected="+dd.selected);
                 }
                 else
                 {
-                dd.moving = false;
-                dd.rotating = false;
-                dd.dragging = false;
-                dd.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    dd.moving = false;
+                    dd.rotating = false;
+                    dd.dragging = false;
+                    dd.rb.constraints = RigidbodyConstraints2D.FreezeAll;
+                    GameObject.Find("FYFYGameEngine").GetComponent<FYFYGameEngine>().log("Mouse Up;" + go.name + ";" + go.transform.position.x + ";" + go.transform.position.y + ";"
+                                                                                        + go.transform.rotation.x + ";" + go.transform.rotation.y);
                 }
             }
             if (Input.GetMouseButton(0))
             {
+                foreach (GameObject go2 in _dd)
+                {
+                    if (!go2.Equals(go))
+                    {
+                        if (go2.GetComponent<DragAndDrop>().dragging) return;
+                    }
+                }
                 if (!dd.dragging && Time.time > dd.PressedTime + dd.ClickDuration)
                 {
                     dd.dragging = true;

@@ -3,10 +3,9 @@ using FYFY;
 using UnityEngine.UI;
 
 public class OpticalComponentSystem : FSystem {
-    //private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(OpticalComponent)));
+    //private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(OpticalComponent))); //doesn't work
     private Family _OC = FamilyManager.getFamily(new AnyOfComponents(typeof(Wall), typeof(Target),
                                                                      typeof(Lens), typeof(Mirror), typeof(LameSemi)));
-    //private Family _OC = FamilyManager.getFamily(new AllOfComponents(typeof(Mirror)));
 
     // Use to process your families.
     protected override void onProcess(int familiesUpdateCount) {
@@ -28,7 +27,6 @@ public class OpticalComponentSystem : FSystem {
                 Target t = (Target)oc;
                 Color c = t.Shine.GetComponent<Image>().color;
                 float I = Mathf.Clamp01((t.CollectedIntensity / t.TargetIntensity));
-                Debug.Log("I" + t.CollectedIntensity);
 
                 if (t.score < I)
                 {

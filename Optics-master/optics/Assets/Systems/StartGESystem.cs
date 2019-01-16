@@ -11,9 +11,11 @@ public class StartGESystem : FSystem {
     public StartGESystem()
     {
         if (SceneManager.GetActiveScene().name != "level")
+        {
             foreach (GameObject go in _GE)
                 DrawRays(go);
-        _GE.addEntryCallback(DrawRays);
+            _GE.addEntryCallback(DrawRays);
+        } 
     }
 
     private void DrawRays(GameObject go)
