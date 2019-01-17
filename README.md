@@ -1,13 +1,16 @@
 # LightMare
 
 ## Levels
-All levels configuration files are in .\Optics\optics\Assets\Levels under the form:
+All levels' configuration files are in .\Optics\optics\Assets\Levels under the form:
+
 element x y rotation
+
 EOF
+
 
 All elements use default configuration, to add more propeties, see more .\Optics\optics\Assets\Systems\LoadingSystem.cs
 
-The progression is save in .\Optics\optics\Assets\Levels\progression.txt : the first argument is the progression of the game, the second is the number total
+The progression is save in .\Optics\optics\Assets\Levels\progression.txt : the first argument is the progression of the game, the second is the number of levels
 
 ## Log
 All log files are in .\Optics\optics\Assets\Logs under the form:
