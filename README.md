@@ -11,11 +11,13 @@ The progression is save in .\Optics\optics\Assets\Levels\progression.txt : the f
 
 ## Log
 All log files are in .\Optics\optics\Assets\Logs under the form:
-m/d/y h:m:s; time elapsed; event
+m d y h m s ms; time elapsed; event
 
-learn more about this .\Optics\optics\Assets\Components\FYFYGameEngine -> log()
+Learn more about this .\Optics\optics\Assets\Components\FYFYGameEngine -> log()
 
 ## More elements
 To add more type of element, create an element that extends OpticalcComponent with its own propeties.
+
 Go to .\Optics\optics\Assets\Systems\OpticalComponentSystem.cs and add this component to the _OC family.
+
 Modify the deflect funtion of .\Optics\optics\Assets\Systems\GameEngineSystem
