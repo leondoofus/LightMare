@@ -16,7 +16,7 @@ m d y h m s ms; time elapsed; event
 Learn more about this .\Optics\optics\Assets\Components\FYFYGameEngine -> log()
 
 ## More elements
-To add more type of element, create an element that extends OpticalcComponent with its own propeties.
+To add more types of element, create an element that extends OpticalComponent with its own propeties.
 
 Go to .\Optics\optics\Assets\Systems\OpticalComponentSystem.cs and add this component to the _OC family.
 
