@@ -24,3 +24,5 @@ To add more types of element, create an element that extends OpticalComponent wi
 Go to .\Optics\optics\Assets\Systems\OpticalComponentSystem.cs and add this component to the _OC family.
 
 Modify the deflect funtion of .\Optics\optics\Assets\Systems\GameEngineSystem
+
+Add same type of prefab to the scene level
